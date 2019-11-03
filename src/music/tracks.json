@@ -1,0 +1,121 @@
+{
+    "sources": [
+        {
+            "src": "christiansandberg.m4a",
+            "type": "audio/mp4"
+        },
+        {
+            "src": "christiansandberg.ogg",
+            "type": "audio/ogg"
+        },
+        {
+            "src": "christiansandberg.mp3",
+            "type": "audio/mp3"
+        }
+    ],
+    "tracks": [
+        {
+            "start": 0.0,
+            "artist": "Proff vs Rozalla",
+            "title": "Everybody's Blue",
+            "type": "Mash-up"
+        },
+        {
+            "start": 198.425,
+            "artist": "Keylas",
+            "title": "Bye Bye",
+            "type": "Remix"
+        },
+        {
+            "start": 438.425,
+            "artist": "Jakatta",
+            "title": "My Vision",
+            "type": "Bootleg"
+        },
+        {
+            "start": 603.425,
+            "artist": "Faithless vs Metallica vs StoneBridge & Wawa",
+            "title": "Let It Go To Sleep",
+            "type": "Mash-up"
+        },
+        {
+            "start": 865.925,
+            "artist": "Rick Astley",
+            "title": "Never Gonna Give You Up",
+            "type": "Bootleg"
+        },
+        {
+            "start": 1075.925,
+            "artist": "Audiosphere",
+            "title": "3am",
+            "type": "Remix"
+        },
+        {
+            "start": 1165.925,
+            "artist": "Rihanna vs Deadmau5",
+            "title": "Disturbia/Arguru",
+            "type": "Mash-up"
+        },
+        {
+            "start": 1330.925,
+            "title": "Clouds",
+            "type": "Original"
+        },
+        {
+            "start": 1454.925,
+            "artist": "Madonna vs Eric Prydz",
+            "title": "4 Minute Pjanoo",
+            "type": "Mash-up"
+        },
+        {
+            "start": 1637.533,
+            "title": "Paper Plane",
+            "type": "Original"
+        },
+        {
+            "start": 1787.533,
+            "artist": "Agnes vs Shogun",
+            "title": "Release Nadia",
+            "type": "Mash-up"
+        },
+        {
+            "start": 1972.148,
+            "artist": "Jato Unit",
+            "title": "Drive Me Crazy",
+            "type": "Remix"
+        },
+        {
+            "start": 2252.763,
+            "artist": "Shannon vs Kelly Clarkson vs Signalrunners",
+            "title": "Music In Montauk",
+            "type": "Mash-up"
+        },
+        {
+            "start": 2542.672,
+            "artist": "Kiss Kiss Kiss",
+            "title": "To The Beaches",
+            "type": "Remix"
+        },
+        {
+            "start": 2820.036,
+            "artist": "Steven Stone",
+            "title": "Get Up",
+            "type": "Remix"
+        },
+        {
+            "start": 2967.728,
+            "title": "Shimmering Lights",
+            "type": "Original"
+        },
+        {
+            "start": 3218.805,
+            "title": "Rain Clouds",
+            "type": "Original"
+        },
+        {
+            "start": 3425.575,
+            "title": "Moth",
+            "type": "Original"
+        }
+    ]
+}

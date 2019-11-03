@@ -1,0 +1,64 @@
+
+#photos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.photo {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.photo img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 80vw;
+    image-rendering: optimizeQuality;
+}
+
+.photo-enter, .photo-exit, .photo-appear, .photo-enter-done {
+    display: block;
+}
+
+.photo-exit {
+    z-index: 50;
+}
+
+.photo-enter {
+    transform: scale(1) translateY(20%);
+}
+
+.photo-enter-active {
+    transform: scale(1) translateY(0px);
+    transition: transform 1000ms ease-in-out;
+}
+
+.photo-enter-done img {
+    /* transform: translateY(-100px); */
+    /* transition: transform 3s linear; */
+}
+
+.photo-exit {
+    /* transform: translateY(-100px); */
+}
+
+.photo-exit-active {
+    transform: translateY(-100%);
+    transition: transform 1000ms ease-in-out;
+}
+
+.photo-exit-active img {
+    transform: translateX(-50%) translateY(10%) scale(1);
+    /* opacity: 0.5; */
+    transition: transform 1000ms ease-in-out;
+}
