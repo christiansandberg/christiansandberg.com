@@ -34,8 +34,8 @@ ol.tracks {
     margin: 0;
     padding: 0;
     width: 100%;
-    list-style-type: decimal-leading-zero;
-    // list-style-type: none;
+    // list-style-type: decimal-leading-zero;
+    list-style-type: none;
     border-left: 2px solid #dddddd;
 
     .progress {
@@ -72,12 +72,12 @@ ol.tracks {
 
         a {
             display: block;
-            height: 40px;
+            min-height: 40px;
             padding: 30px 30px;
             overflow-x: hidden;
             text-decoration: none;
             color: white;
-            transition: height 1s ease-in-out,
+            transition: min-height 1s ease-in-out,
                         transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 
             &::before {
@@ -109,7 +109,7 @@ ol.tracks {
 
         &.playing {
             a {
-                height: 100px;
+                min-height: 100px;
     
                 .info {
                     opacity: 1;

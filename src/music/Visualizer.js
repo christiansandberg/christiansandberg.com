@@ -14,7 +14,8 @@ try {
 }
 
 function useVisualizer() {
-    return audioCtx !== null;
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    return (audioCtx !== null) && !iOS;
 }
 
 function THREEVisualizer(canvas) {

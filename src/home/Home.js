@@ -45,7 +45,7 @@ function Home() {
             <div className="presentation">
                 Embedded software developer from Sweden.
                 Enjoys music, photography and web technologies.
-                Welcome to my little playground!
+                This website is under construction!
             </div>
             <ul className="links">{list}</ul>
         </section>
