@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { Visualizer, getAudioContext, useVisualizer } from './Visualizer';
+import Visualizer from './Visualizer';
 import mixInfo from './tracks.json';
 import './Music.scss';
+import { useAudioControls, useAudioElement, useSetSources, supportVisualizer } from './audio-context';
 
 const tracks = mixInfo.tracks.map((track, i) => {
     const nextTrack = mixInfo.tracks[i + 1];
@@ -12,103 +13,108 @@ const tracks = mixInfo.tracks.map((track, i) => {
 function Music(props) {
     return (
         <section className="music">
-            {useVisualizer() && <Visualizer audioRef={props.audioRef} />}
+            {supportVisualizer() && <Visualizer />}
             <div className="vignette"></div>
-            <Mix tracks={tracks} audioRef={props.audioRef} />
+            <div className="music-intro">
+                This is a mix of some of my progressive house productions,
+                remixes and mash-ups that have just been collecting dust
+                on a hard drive for the last decade.
+            </div>
+            <Mix tracks={tracks} />
         </section>
     );
 }
 
-function Audio(props) {
-    const sources = mixInfo.sources;
-
-    return (
-        <audio preload="none" crossOrigin="anonymous" ref={props.audioRef}>
-            {sources.map(s =>
-                <source key={s.src}
-                        src={process.env.REACT_APP_MEDIA_URL + s.src}
-                        type={s.type} />
-            )}
-        </audio>
-    );
-}
-
 function Mix(props) {
-    const {tracks, audioRef} = props;
-    const [time, setTime] = useState(audioRef.current ? audioRef.current.currentTime : null);
+    const {tracks} = props;
+    const audioEl = useAudioElement();
+    const audioControls = useAudioControls();
+    const setSources = useSetSources();
+    const [time, setTime] = useState(audioEl.current ? audioEl.current.currentTime : null);
+    const [paused, setPaused] = useState(audioEl.current ? audioEl.current.paused : true);
 
     useEffect(() => {
-        const audio = audioRef.current;
+        const audio = audioEl.current;
 
-        function playPause() {
-            const audio = audioRef.current;
-            const ctx = getAudioContext();
-            if (audio.paused) {
-                audio.play();
-                ctx.resume();
-            } else {
-                audio.pause();
-                ctx.suspend();
-            }
-        }
-    
         function handleTimeUpdate() {
             setTime(audio.currentTime + 2);
+        }
+
+        function handleDurationChange() {
+            tracks[tracks.length - 1].end = audio.duration
+        }
+
+        function handlePausedUpdate() {
+            setPaused(audio.paused);
         }
 
         function handleKeyPress(e) {
             if (e.code === "Space") {
                 e.preventDefault();
-                playPause();
+                audioControls.play();
             }
         }
 
-        audio.addEventListener("durationchange", () =>
-            tracks[tracks.length - 1].end = audio.duration
-        );
-        audio.addEventListener("timeupdate", handleTimeUpdate);
+        if (audio) {
+            audio.addEventListener("durationchange", handleDurationChange);
+            audio.addEventListener("timeupdate", handleTimeUpdate);
+            audio.addEventListener("play", handlePausedUpdate);
+            audio.addEventListener("pause", handlePausedUpdate);
+            audio.addEventListener("ended", handlePausedUpdate);
+        }
         document.addEventListener("keydown", handleKeyPress);
 
-        return () => {
-            audio.removeEventListener("timeupdate", handleTimeUpdate);
+        return function cleanup() {
+            if (audio) {
+                audio.removeEventListener("durationchange", handleDurationChange);
+                audio.removeEventListener("timeupdate", handleTimeUpdate);
+                audio.removeEventListener("play", handlePausedUpdate);
+                audio.removeEventListener("pause", handlePausedUpdate);
+                audio.removeEventListener("ended", handlePausedUpdate);
+            }
             document.removeEventListener("keydown", handleKeyPress);
         }
-    }, [audioRef, tracks]);
+    }, [audioEl, audioControls, tracks]);
+
+    useEffect(() => {
+        setSources(mixInfo.sources);
+    }, [setSources]);
 
     function seekTo(newTime) {
-        const audio = audioRef.current;
-        if (audio.paused) {
-            audio.play();
-            getAudioContext().resume();
-            if (audio.readyState < 2) {
-                // Can't seek yet, call us again when we can
-                audio.addEventListener("loadeddata", () => seekTo(newTime));
-            }
+        const audio = audioEl.current;
+        audioControls.play();
+        if (audio.readyState < 2) {
+            // Can't seek yet, call us again when we can
+            audio.addEventListener("loadeddata", () => seekTo(newTime));
         }
 
         audio.currentTime = newTime - 1.8;
     }
 
+    const classes = ["tracks"];
+    if (paused) {
+        classes.push("paused");
+    }
+
     return (
-        <div className="content">
-            <ol className="tracks">
-                {tracks.map(track =>
-                    <Track key={track.title}
-                           data={track}
-                           seekTo={seekTo}
-                           time={time} />
-                )}
-            </ol>
-        </div>
+        <ol className={classes.join(" ")}>
+            {tracks.map((track, index) =>
+                <Track key={track.title}
+                        number={index + 1}
+                        data={track}
+                        seekTo={seekTo}
+                        time={time} />
+            )}
+        </ol>
     );
 }
 
 function Track(props) {
     const { start, end, artist, title } = props.data;
-    const { time, seekTo } = props;
+    const { time, seekTo, number } = props;
 
     let className = "";
-    if ((time < start) || (time === null)) {
+    if ((time <= start) || (time === null)) {
         className = "cued";
     } else if (time > end) {
         className = "played";
@@ -119,7 +125,7 @@ function Track(props) {
     const progress = (time - start) / (end - start);
     const satProgress = Math.max(Math.min(progress, 1), 0);
     const progressStyle = {
-        height: satProgress * 100 + "%"
+        width: satProgress * 100 + "%"
     };
     const infoStyle = {
         // transitionDelay: (start * 0.001 + 0.5) + "s"
@@ -132,8 +138,9 @@ function Track(props) {
 
     return (
         <li className={className}>
+            <div className="number">{number.toString().padStart(2, "0")}.</div>
             <div className="progress" style={progressStyle}></div>
-            <a href="#play" onClick={clickHandler}>
+            <a href={"#t-" + start} onClick={clickHandler}>
                 <div className="info" style={infoStyle}>
                     <div className="artist">{artist}&nbsp;</div>
                     <div className="title">{title}</div>
@@ -143,4 +150,4 @@ function Track(props) {
     );
 }
 
-export {Music, Audio};
+export default Music;

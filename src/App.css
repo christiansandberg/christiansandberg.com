@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Sarpanch', Arial, sans-serif;
-    font-size: 24px;
+    font-size: 20px;
     color: white;
     background-color: black; /*hsl(45, 30%, 0%);*/
     /* background: radial-gradient(circle, hsl(45, 0%, 15%) 0%, hsl(0, 0%, 5%) 80%) no-repeat; */
@@ -21,40 +21,24 @@ html, body {
     max-width: 100%;
 }
 
-h2 {
-    display: none;
-    position: absolute;
-    left: -0.2em;
-    top: -1em;
-    margin: 0;
-    padding: 0;
-    transform-origin: 0 100%;
-    transform: rotate(90deg);
-    font-family: 'Dosis', 'Arial Narrow', sans-serif;
-    font-size: 70px;
-    text-transform: uppercase;
-    letter-spacing: -2px;
-    color: #638767;
-}
-
 section {
     position: relative;
 }
 
 .page-exit-active {
     opacity: 0;
-    transform: scale(1.5);
-    transition: all 1s ease-in-out;
+    transform: translate3d(0, 50vh, 0);
+    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in;
 }
 
 .page-enter {
-    opacity: 0;
-    transform: scale(0.75);
+    opacity: 1;
     z-index: 50;
+    transform: translate3d(0, -100vh, 0);
 }
 
 .page-enter-active {
     opacity: 1;
-    transform: scale(1);
-    transition: all 1s ease-in-out;
+    transform: translate3d(0, 0, 0);
+    transition: transform 1.5s ease-in-out, opacity 1s ease-out;
 }

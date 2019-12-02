@@ -1,3 +1,3 @@
-import {Music, Audio} from './Music';
+import Music from './Music';
 
-export {Music, Audio};
+export default Music;

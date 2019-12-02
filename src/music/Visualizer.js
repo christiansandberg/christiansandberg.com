@@ -1,22 +1,12 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useContext} from 'react';
 // import { AudioContext } from 'standardized-audio-context';
 import * as THREE from 'three';
+import {
+    useAnalyser,
+    useAudioElement
+} from './audio-context';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-
-let audioCtx = null;
-let currentAudioSrc = null;
-
-try {
-    audioCtx = new AudioContext({latencyHint: "playback", sampleRate: 44100});
-} catch(e) {
-    audioCtx = null;
-}
-
-function useVisualizer() {
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    return (audioCtx !== null) && !iOS;
-}
+const BAR_COLOR = 0x8bb9df;
 
 function THREEVisualizer(canvas) {
     let geometry, material;
@@ -77,7 +67,7 @@ function THREEVisualizer(canvas) {
 
     const bars = [];
     geometry = new THREE.PlaneBufferGeometry(BOX_WIDTH * 0.8, BOX_HEIGHT * 0.8);
-    material = new THREE.MeshBasicMaterial({color: 0xdddddd});
+    material = new THREE.MeshBasicMaterial({color: BAR_COLOR});
     for (let i = 0; i < NOF_BOXES_H; i++) {
         const boxes = [];
         for (let j = 0; j < NOF_BOXES_V; j++) {
@@ -118,22 +108,13 @@ function THREEVisualizer(canvas) {
 
 function Visualizer(props) {
     const canvasRef = useRef(null);
-    const { audioRef } = props;
+    const audioEl = useAudioElement();
+    const analyserRef = useAnalyser();
 
     useEffect(() => {
-        const audio = audioRef.current;
-        if (!currentAudioSrc) {
-            currentAudioSrc = audioCtx.createMediaElementSource(audio);
-        }
-        const source = currentAudioSrc;
-        const analyser = audioCtx.createAnalyser();
-        source.connect(analyser);
-        source.connect(audioCtx.destination);
-
+        const audio = audioEl.current;
+        const analyser = analyserRef.current;
         let reqAnimId = null;
-
-        const visualizer = new THREEVisualizer(canvasRef.current);
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
         // Tune the analyser a little
         analyser.fftSize = 64;
@@ -141,12 +122,15 @@ function Visualizer(props) {
         analyser.maxDecibels = -2;
         analyser.smoothingTimeConstant = 0.85;
 
+        const visualizer = new THREEVisualizer(canvasRef.current);
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
         function updateSize() {
             visualizer.setSize(window.innerWidth, window.innerHeight);
         }
 
         function render() {
-            analyser.getByteFrequencyData(dataArray);
+            analyserRef.current.getByteFrequencyData(dataArray);
             visualizer.render(dataArray);
             reqAnimId = requestAnimationFrame(render);
         }
@@ -163,7 +147,7 @@ function Visualizer(props) {
         }
 
         updateSize();
-        if (!audio.paused) {
+        if (audio.paused === false) {
             startRender();
         }
 
@@ -179,15 +163,11 @@ function Visualizer(props) {
             audio.removeEventListener("pause", stopRender);
             audio.removeEventListener("ended", stopRender);
             window.removeEventListener("resize", updateSize);
-            source.disconnect(analyser);
         };
-    }, [audioRef]);
+    }, [audioEl, analyserRef]);
 
     return <canvas className="visualizer" ref={canvasRef}></canvas>;
 }
 
-function getAudioContext() {
-    return audioCtx;
-}
 
-export { Visualizer, getAudioContext, useVisualizer };
+export default Visualizer;

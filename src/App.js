@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,35 +10,36 @@ import {
   CSSTransition
 } from "react-transition-group";
 import Home from './home';
-import {Audio, Music} from './music';
+import Music from './music';
+import {Audio} from './music/audio-context';
 import Photos from './photos';
 import Menu from './Menu';
 import './App.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function WebPage() {
   let location = useLocation();
-  const audioRef = useRef(null);
 
   return (
     <div className="App">
-      <Menu/>
-      <Audio audioRef={audioRef}/>
-      <TransitionGroup>
-        <CSSTransition key={location.key} classNames="page" timeout={3000}>
-          <Switch location={location}>
-            <Route path="/" exact>
-              <Home/>
-            </Route>
-            <Route path="/music">
-              <Music audioRef={audioRef}/>
-            </Route>
-            <Route path="/photos">
-              <Photos/>
-            </Route>
-          </Switch>
-        </CSSTransition>
-      </TransitionGroup>
+      <Audio>
+        <Menu/>
+        <TransitionGroup>
+          <CSSTransition key={location.key} classNames="page" timeout={3000}>
+            <Switch location={location}>
+              <Route path="/" exact>
+                <Home/>
+              </Route>
+              <Route path="/music">
+                <Music/>
+              </Route>
+              <Route path="/photos">
+                <Photos/>
+              </Route>
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
+      </Audio>
     </div>
   );
 }

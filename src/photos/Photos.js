@@ -64,7 +64,7 @@ function Photos() {
 
 function Photo(props) {
     return (
-        <div className="photo"><img src={props.src} alt=""/></div>
+        <div className="photo" style={{backgroundImage: `url('${props.src}')`}}></div>
     );
 }
 
