@@ -6,7 +6,7 @@ import {
     useAudioElement
 } from './audio-context';
 
-const BAR_COLOR = 0x8bb9df;
+const BAR_COLOR = 0xbbbbbb; //0x8bb9df;
 
 function THREEVisualizer(canvas) {
     let geometry, material;
@@ -16,6 +16,8 @@ function THREEVisualizer(canvas) {
         alpha: true,
         antialias: true
     });
+
+    // renderer.setClearColor(0x666666);
 
     const scene = new THREE.Scene();
     // scene.autoUpdate = false;

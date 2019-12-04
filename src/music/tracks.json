@@ -16,104 +16,140 @@
     "tracks": [
         {
             "start": 0.0,
+            "cue": 0.0,
+            "end": 198.425,
             "artist": "Proff vs Rozalla",
             "title": "Everybody's Blue",
             "type": "Mash-up"
         },
         {
-            "start": 198.425,
+            "start": 168.189,
+            "cue": 198.425,
+            "end": 453.425,
             "artist": "Keylas",
             "title": "Bye Bye",
             "type": "Remix"
         },
         {
-            "start": 438.425,
+            "start": 408.425,
+            "cue": 438.425,
+            "end": 610.925,
             "artist": "Jakatta",
             "title": "My Vision",
             "type": "Bootleg"
         },
         {
-            "start": 603.425,
+            "start": 595.925,
+            "cue": 603.425,
+            "end": 869.675,
             "artist": "Faithless vs Metallica vs StoneBridge & Wawa",
             "title": "Let It Go To Sleep",
             "type": "Mash-up"
         },
         {
             "start": 865.925,
+            "cue": 865.925,
+            "end": 1079.675,
             "artist": "Rick Astley",
             "title": "Never Gonna Give You Up",
             "type": "Bootleg"
         },
         {
-            "start": 1075.925,
+            "start": 1068.425,
+            "cue": 1075.925,
+            "end": 1184.675,
             "artist": "Audiosphere",
             "title": "3am",
             "type": "Remix"
         },
         {
-            "start": 1165.925,
+            "start": 1150.925,
+            "cue": 1165.925,
+            "end": 1332.800,
             "artist": "Rihanna vs Deadmau5",
             "title": "Disturbia/Arguru",
             "type": "Mash-up"
         },
         {
             "start": 1330.925,
+            "cue": 1330.925,
+            "end": 1469.913,
             "title": "Clouds",
             "type": "Original"
         },
         {
-            "start": 1454.925,
+            "start": 1424.675,
+            "cue": 1454.925,
+            "end": 1645.033,
             "artist": "Madonna vs Eric Prydz",
             "title": "4 Minute Pjanoo",
             "type": "Mash-up"
         },
         {
-            "start": 1637.533,
+            "start": 1622.294,
+            "cue": 1637.533,
+            "end": 1817.071,
             "title": "Paper Plane",
             "type": "Original"
         },
         {
-            "start": 1787.533,
+            "start": 1785.658,
+            "cue": 1787.533,
+            "end": 1973.994,
             "artist": "Agnes vs Shogun",
             "title": "Release Nadia",
             "type": "Mash-up"
         },
         {
-            "start": 1972.148,
+            "start": 1970.302,
+            "cue": 1972.148,
+            "end": 2256.399,
             "artist": "Jato Unit",
             "title": "Drive Me Crazy",
             "type": "Remix"
         },
         {
-            "start": 2252.763,
+            "start": 2237.994,
+            "cue": 2252.763,
+            "end": 2572.763,
             "artist": "Shannon vs Kelly Clarkson vs Signalrunners",
             "title": "Music In Montauk",
             "type": "Mash-up"
         },
         {
-            "start": 2542.672,
+            "start": 2500.036,
+            "cue": 2542.672,
+            "end": 2847.728,
             "artist": "Kiss Kiss Kiss",
             "title": "To The Beaches",
             "type": "Remix"
         },
         {
-            "start": 2820.036,
+            "start": 2790.036,
+            "cue": 2820.036,
+            "end": 2997.267,
             "artist": "Steven Stone",
             "title": "Get Up",
             "type": "Remix"
         },
         {
-            "start": 2967.728,
+            "start": 2952.959,
+            "cue": 2967.728,
+            "end": 3248.344,
             "title": "Shimmering Lights",
             "type": "Original"
         },
         {
-            "start": 3218.805,
+            "start": 3189.267,
+            "cue": 3218.805,
+            "end": 3483.700,
             "title": "Rain Clouds",
             "type": "Original"
         },
         {
-            "start": 3425.575,
+            "start": 3396.036,
+            "cue": 3425.575,
+            "end": 3701.200,
             "title": "Moth",
             "type": "Original"
         }

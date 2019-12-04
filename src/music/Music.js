@@ -4,23 +4,17 @@ import mixInfo from './tracks.json';
 import './Music.scss';
 import { useAudioControls, useAudioElement, useSetSources, supportVisualizer } from './audio-context';
 
-const tracks = mixInfo.tracks.map((track, i) => {
-    const nextTrack = mixInfo.tracks[i + 1];
-    track.end = nextTrack ? nextTrack.start : Infinity;
-    return track;
-});
-
 function Music(props) {
     return (
         <section className="music">
             {supportVisualizer() && <Visualizer />}
-            <div className="vignette"></div>
+            {/* <div className="vignette"></div> */}
             <div className="music-intro">
                 This is a mix of some of my progressive house productions,
                 remixes and mash-ups that have just been collecting dust
                 on a hard drive for the last decade.
             </div>
-            <Mix tracks={tracks} />
+            <Mix tracks={mixInfo.tracks} />
         </section>
     );
 }
@@ -101,7 +95,8 @@ function Mix(props) {
             {tracks.map((track, index) =>
                 <Track key={track.title}
                         number={index + 1}
-                        data={track}
+                        currentTrack={track}
+                        nextTrack={tracks[index + 1]}
                         seekTo={seekTo}
                         time={time} />
             )}
@@ -110,16 +105,18 @@ function Mix(props) {
 }
 
 function Track(props) {
-    const { start, end, artist, title } = props.data;
+    const { start, cue, end, artist, title } = props.currentTrack;
+    const nextCue = props.nextTrack ? props.nextTrack.cue : Infinity;
     const { time, seekTo, number } = props;
 
-    let className = "";
+    let className = (time !== null && time >= cue && time < nextCue) ? "active " : "";
+
     if ((time <= start) || (time === null)) {
-        className = "cued";
+        className += "cued";
     } else if (time > end) {
-        className = "played";
+        className += "played";
     } else {
-        className = "playing";
+        className += "playing";
     }
 
     const progress = (time - start) / (end - start);
@@ -133,7 +130,7 @@ function Track(props) {
 
     const clickHandler = (e) => {
         e.preventDefault();
-        seekTo(start);
+        seekTo(cue);
     }
 
     return (

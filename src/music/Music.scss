@@ -7,6 +7,7 @@
     background-size: cover;
     background-attachment: fixed;
     overflow-y: scroll;
+    overflow-x: hidden;
     position: fixed;
     left: 0;
     right: 0;
@@ -18,7 +19,8 @@
         z-index: -10;
         top: 0;
         left: 0;
-        opacity: 0.3;
+        // opacity: 0.3;
+        mix-blend-mode: overlay;
     }
 
     .vignette {
@@ -33,10 +35,12 @@
 }
 
 .music-intro {
-    padding: 100px 15px;
+    padding: 15px;
+    margin: 100px 0 50px;
     text-align: left;
     line-height: 150%;
-    max-width: 700px;
+    max-width: 670px;
+    border: 3px solid white;
 }
 
 ol.tracks {
@@ -67,10 +71,12 @@ ol.tracks {
         }
 
         .progress {
+            visibility: hidden;
             position: absolute;
             bottom: -1px;
             height: 3px;
             width: 0%;
+            // opacity: 0.1;
             background-color: white;
             box-shadow: 0 0 7px 1px rgba(255, 255, 255, 0.75);
             border-radius: 5px;
@@ -133,9 +139,22 @@ ol.tracks {
         }
 
         &.playing {
+            .progress {
+                visibility: visible;
+            }
+
             a {
-                height: 7em;
                 border-bottom: 1px solid #cccccc;
+            }
+        }
+
+        &.active {
+            .progress {
+                opacity: 1;
+            }
+
+            a {
+                height: 6em;
                 text-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
                 font-size: 150%;
                 line-height: 1.4em;
@@ -146,12 +165,6 @@ ol.tracks {
                     /* margin-top: 30px; */
                     /* margin-bottom: 30px; */
                 }
-            }
-        }
-
-        &.played, &.cued {
-            .progress {
-                display: none;
             }
         }
     }
