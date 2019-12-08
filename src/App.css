@@ -4,7 +4,7 @@ body {
     font-family: 'Sarpanch', Arial, sans-serif;
     font-size: 20px;
     color: white;
-    background-color: black; /*hsl(45, 30%, 0%);*/
+    background-color: #111111; /*hsl(45, 30%, 0%);*/
     /* background: radial-gradient(circle, hsl(45, 0%, 15%) 0%, hsl(0, 0%, 5%) 80%) no-repeat; */
     /* background-attachment: fixed; */
     min-height: 100vh;

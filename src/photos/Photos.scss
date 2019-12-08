@@ -1,9 +1,47 @@
 
 #photos {
     position: absolute;
+    overflow-x: hidden;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    padding: 0;
+    padding: 100px 5vh;
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            // position: relative;
+            min-height: 110vh;
+            display: block;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        li:nth-child(odd) {
+            text-align: left;
+        }
+
+        li:nth-child(even) {
+            text-align: right;
+        }
+    }
+
+    img {
+        // position: absolute;
+        // top: 50%;
+        // left: 50%;
+        // transform: translate3d(-50%, -50%, 0);
+        max-width: 90vw;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+    }
 }
 
 .photo {

@@ -15,6 +15,7 @@
     "react-scripts": "3.2.0",
     "react-transition-group": "^4.3.0",
     "rellax": "^1.10.0",
+    "scrollreveal": "^4.0.5",
     "standardized-audio-context": "^22.0.2",
     "three": "^0.109.0"
   },

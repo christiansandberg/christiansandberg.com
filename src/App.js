@@ -25,7 +25,7 @@ function WebPage() {
       <Audio>
         <Menu/>
         <TransitionGroup>
-          <CSSTransition key={location.key} classNames="page" timeout={3000}>
+          <CSSTransition key={location.key} appear classNames="page" timeout={3000}>
             <Switch location={location}>
               <Route path="/" exact>
                 <Home/>
