@@ -1,62 +1,83 @@
 [
     {
         "src": "photo - 1.jpg",
-        "location": ""
+        "lat": 59.321075,
+        "long": 18.064150
     },
     {
         "src": "photo - 2.jpg",
-        "location": ""
+        "lat": 56.258550,
+        "long": 12.883237
     },
     {
         "src": "photo - 3.jpg",
-        "location": ""
+        "lat": 57.716104,
+        "long": 11.646808
     },
     {
         "src": "photo - 4.jpg",
-        "location": ""
+        "lat": 57.716104,
+        "long": 11.646808
     },
     {
         "src": "photo - 5.jpg",
-        "location": ""
+        "lat": 55.679633,
+        "long": 12.591305
     },
     {
         "src": "photo - 6.jpg",
-        "location": ""
+        "lat": 50.895108,
+        "long": 4.341144
     },
     {
         "src": "photo - 7.jpg",
-        "location": ""
+        "lat": 48.858774,
+        "long": 2.293669
     },
     {
         "src": "photo - 8.jpg",
-        "location": ""
+        "lat": 51.512188,
+        "long": -0.159645
     },
     {
         "src": "photo - 9.jpg",
-        "location": ""
+        "lat": 45.437960,
+        "long": 12.335945
     },
     {
         "src": "photo - 10.jpg",
-        "location": ""
+        "lat": 40.704240,
+        "long": -73.990598
     },
     {
         "src": "photo - 11.jpg",
-        "location": ""
+        "lat": 34.967619,
+        "long": 135.774683
     },
     {
         "src": "photo - 12.jpg",
-        "location": ""
+        "lat": 35.658450,
+        "long": 139.746130
     },
     {
         "src": "photo - 13.jpg",
-        "location": ""
+        "lat": 35.655835,
+        "long": 139.756269
     },
     {
         "src": "photo - 14.jpg",
-        "location": ""
+        "lat": 35.655835,
+        "long": 139.756269
     },
     {
         "src": "photo - 15.jpg",
-        "location": ""
+        "lat": 35.655835,
+        "long": 139.756269
+    },
+    {
+        "src": "japan.mp4",
+        "poster": "japan.jpg",
+        "lat": 35.655835,
+        "long": 139.756269
     }
 ]

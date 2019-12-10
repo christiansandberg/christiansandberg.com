@@ -1,75 +1,109 @@
-import React, {useState, useEffect} from 'react';
-import {CSSTransition} from "react-transition-group";
+import React, {useRef, useState, useEffect} from 'react';
+import throttle from 'lodash/throttle';
 import ScrollReveal from 'scrollreveal';
+import Earth from './Earth';
 import photos from './photos.json';
 import './Photos.scss';
 
 
 function Photos() {
-    const [active, setActive] = useState(0);
-
-    function next() {
-        setActive(active < photos.length - 1 ? active + 1 : 0);
-    }
-
-    function prev() {
-        setActive(active > 0 ? active - 1 : photos.length - 1);
-    }
+    const listRef = useRef();
+    const imagesRef = useRef([]);
 
     useEffect(() => {
         ScrollReveal()
-            .reveal('#photos li:nth-child(odd)', {
+            .reveal('.photo', {
                 reset: false,
                 viewFactor: 0.5,
-                distance: "100px",
-                origin: "left"
+                distance: "200px",
+                origin: "bottom"
             });
-        ScrollReveal()
-            .reveal('#photos li:nth-child(even)', {
-                reset: false,
-                viewFactor: 0.5,
-                distance: "100px",
-                origin: "right"
-            });
-
-        function handleKeyPress(e) {
-            if (e.code === "ArrowRight") {
-                e.preventDefault();
-                next();
-            } else if (e.code === "ArrowLeft") {
-                e.preventDefault();
-                prev();
-            } 
-        }
-
-        document.addEventListener("keydown", handleKeyPress);
-
-        return function cleanup() {
-            document.removeEventListener("keydown", handleKeyPress);
-        }
-    });
-
-//     <CSSTransition key={i} in={i === active} appear classNames="photo" timeout={1000}>
-//          <Photo src={"/photos/" + src}/>
-//      </CSSTransition>
+        // ScrollReveal()
+        //     .reveal('.photo:nth-child(odd)', {
+        //         reset: false,
+        //         viewFactor: 0.5,
+        //         distance: "300px",
+        //         origin: "left"
+        //     });
+        // ScrollReveal()
+        //     .reveal('.photo:nth-child(even)', {
+        //         reset: false,
+        //         viewFactor: 0.5,
+        //         distance: "300px",
+        //         origin: "right"
+        //     });
+        
+        // Get all image nodes
+        imagesRef.current = [...listRef.current.querySelectorAll(".photo")];
+    }, []);
 
     return (
         <section id="photos">
-            <ul>
-                {photos.map((photo, i) =>
-                    <Photo {...photo}/>
+            <LocationDisplay imagesRef={imagesRef}/>
+            <ul ref={listRef}>
+                {photos.map(photo =>
+                    <Photo key={photo.src} {...photo}/>
                 )}
             </ul>
         </section>
     );
 }
 
+function LocationDisplay(props) {
+    const [scrollPos, setScrollPos] = useState(0);
+
+    useEffect(() => {
+        function onScroll() {
+            setScrollPos(window.scrollY);
+        }
+        const throttledScroll = throttle(onScroll, 500);
+
+        document.addEventListener("scroll", throttledScroll);
+
+        return function cleanup() {
+            document.removeEventListener("scroll", throttledScroll);
+        }
+    });
+
+    const images = props.imagesRef.current;
+    console.log(images);
+    let lat = 0;
+    let long = 0;
+    for (let i = images.length - 1; i >= 0; i--) {
+        const img = images[i];
+        const top = img.getBoundingClientRect().top;
+        lat = img.dataset.lat || 0;
+        long = img.dataset.long || 0;
+        if (top < window.innerHeight / 2) {
+            break;
+        }
+    }
+
+    return <Earth lat={lat} long={long}/>;
+}
+
 function Photo(props) {
-    return (
-         <li>
-             <img src={"/photos/" + props.src} alt=""/>
-         </li>
-    );
+    let el;
+    if (props.src.endsWith(".mp4")) {
+        el = <video
+                className="photo"
+                src={process.env.REACT_APP_MEDIA_URL + props.src}
+                poster={"/photos/" + props.poster}
+                preload="none"
+                controls
+                data-lat={props.lat}
+                data-long={props.long}>
+            </video>;
+    } else {
+        el = <img
+                className="photo"
+                src={"/photos/" + props.src}
+                alt=""
+                data-lat={props.lat}
+                data-long={props.long}/>;
+    }
+
+    return <li>{el}</li>;
 }
 
 export default Photos;
