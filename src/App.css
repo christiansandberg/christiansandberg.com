@@ -22,7 +22,11 @@ html, body {
 }
 
 section {
-    position: relative;
+    position: absolute;
+    overflow-x: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .presentation {

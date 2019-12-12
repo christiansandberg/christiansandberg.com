@@ -1,15 +1,11 @@
 
 .photos {
-    position: absolute;
-    overflow-x: hidden;
-    top: 0;
-    left: 0;
-    right: 0;
+    background-color: #070707;
+    padding: 4%;
     perspective: 3000px;
 
     .presentation {
-        margin-left: 4%;
-        width: 50%;
+        max-width: 600px;
     }
 
     ul {
@@ -20,7 +16,7 @@
         li {
             display: block;
             // height: 100vh;
-            margin: 500px 4%;
+            margin-top: 100vh;
             text-align: left;
         }
 
@@ -38,13 +34,15 @@
         // top: 50%;
         // left: 50%;
         // transform: translate3d(-50%, -50%, 0);
+        display: block;
         max-width: 100%;
         max-height: 90vh;
         width: auto;
         height: auto;
         box-shadow: 0px 3px 15px 3px rgba(0, 0, 0, 0.75);
+        // transform: rotate3d(0, 1, 0, 20deg);
         // border: 30px solid #cccccc;
-        // transform-origin: center;
+        // transform-origin: left;
     }
 }
 

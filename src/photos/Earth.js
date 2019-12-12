@@ -5,9 +5,6 @@ import earthTexture from './8081_earthlights4k.jpg';
 // import earthAlpha from './earth-alpha.jpg';
 
 
-const LONGITUDE_OFFSET = -Math.PI / 2;
-
-
 function Earth(props) {
     const canvasRef = useRef();
     const globeRef = useRef();
@@ -15,16 +12,13 @@ function Earth(props) {
     const pointerContainerRef = useRef();
 
     useEffect(() => {
-        const HEIGHT = window.innerHeight;
-        const WIDTH = HEIGHT;
-
         const renderer = new THREE.WebGLRenderer({
             canvas: canvasRef.current,
             alpha: false,
             antialias: false
         });
 
-        const camera = new THREE.PerspectiveCamera(30, WIDTH / HEIGHT, 0.1, 10000);
+        const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 10000);
         // camera.autoUpdate = false;
         camera.position.set(-50, 0, 600);
 
@@ -35,8 +29,6 @@ function Earth(props) {
         renderRef.current = () => renderer.render(scene, camera);
 
         scene.add(camera);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(WIDTH, HEIGHT);
 
         const globe = new THREE.Group();
         scene.add(globe);
@@ -46,7 +38,7 @@ function Earth(props) {
             const texture = new THREE.TextureLoader().load(earthTexture);
             // const alpha = new THREE.TextureLoader().load(earthAlpha);
             // Create the sphere
-            const sphere = new THREE.SphereBufferGeometry(200, 50, 50);
+            const sphere = new THREE.SphereBufferGeometry(200, 40, 40);
             // Map the texture to the material. 
             const material = new THREE.MeshBasicMaterial({
                 map: texture
@@ -57,7 +49,7 @@ function Earth(props) {
             // Create a new mesh with sphere geometry.
             const mesh = new THREE.Mesh(sphere, material);
 
-            mesh.rotation.y = LONGITUDE_OFFSET;
+            mesh.rotation.y = -Math.PI / 2;
 
             return mesh;
         }
@@ -76,6 +68,22 @@ function Earth(props) {
 
         // globe.add(pointerContainer);
         globe.add(createEarth());
+
+        function updateSize() {
+            const HEIGHT = window.innerHeight;
+            const WIDTH = Math.min(HEIGHT, window.innerWidth);
+            camera.aspect = WIDTH / HEIGHT;
+            camera.updateProjectionMatrix();
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(WIDTH, HEIGHT);
+        }
+
+        updateSize();
+        window.addEventListener("resize", updateSize);
+
+        return function cleanup() {
+            window.removeEventListener("resize", updateSize);
+        }
     }, []);
 
     useEffect(() => {
@@ -85,7 +93,7 @@ function Earth(props) {
             targets: globeRef.current.rotation,
             x: props.lat * Math.PI / 180,
             y: props.long * -Math.PI / 180,
-            duration: 2000,
+            duration: 1500,
             easing: "cubicBezier(0.425, 0.030, 0.285, 1.000)",
             // complete: () => cancelAnimationFrame(animId),
             autoplay: false
