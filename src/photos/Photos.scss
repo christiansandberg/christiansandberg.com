@@ -1,11 +1,16 @@
 
-#photos {
+.photos {
     position: absolute;
     overflow-x: hidden;
     top: 0;
     left: 0;
     right: 0;
     perspective: 3000px;
+
+    .presentation {
+        margin-left: 4%;
+        width: 50%;
+    }
 
     ul {
         list-style-type: none;
@@ -15,17 +20,17 @@
         li {
             display: block;
             // height: 100vh;
-            margin: 400px 4%;
-            text-align: center;
-        }
-
-        li:nth-child(odd) {
+            margin: 500px 4%;
             text-align: left;
         }
 
-        li:nth-child(even) {
-            text-align: right;
-        }
+        // li:nth-child(odd) {
+        //     text-align: left;
+        // }
+
+        // li:nth-child(even) {
+        //     text-align: right;
+        // }
     }
 
     .photo {
@@ -39,12 +44,13 @@
         height: auto;
         box-shadow: 0px 3px 15px 3px rgba(0, 0, 0, 0.75);
         // border: 30px solid #cccccc;
-        transform-origin: center;
+        // transform-origin: center;
     }
 }
 
 .earth {
     position: fixed;
+    z-index: -100;
     top: 0;
-    left: 0;
+    right: 0;
 }

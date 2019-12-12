@@ -7,9 +7,10 @@ import { useAudioControls, useAudioElement, useSetSources, supportVisualizer } f
 function Music(props) {
     return (
         <section className="music">
+            <div className="background"></div>
             {supportVisualizer() && <Visualizer />}
             {/* <div className="vignette"></div> */}
-            <div className="music-intro">
+            <div className="presentation">
                 This is a mix of some of my progressive house productions,
                 remixes and mash-ups that have just been collecting dust
                 on a hard drive for the last decade.

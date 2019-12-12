@@ -9,37 +9,42 @@ import './Photos.scss';
 function Photos() {
     const listRef = useRef();
     const imagesRef = useRef([]);
+    const [coords, setCoords] = useState({lat: 0, long: 0});
 
     useEffect(() => {
-        ScrollReveal()
-            .reveal('.photo', {
-                reset: false,
-                viewFactor: 0.5,
-                distance: "200px",
-                origin: "bottom"
-            });
         // ScrollReveal()
-        //     .reveal('.photo:nth-child(odd)', {
+        //     .reveal('.photo', {
         //         reset: false,
         //         viewFactor: 0.5,
-        //         distance: "300px",
-        //         origin: "left"
+        //         distance: "200px",
+        //         origin: "bottom"
         //     });
+        ScrollReveal().reveal('.photo', {
+            reset: true,
+            viewFactor: 0.5,
+            origin: "left",
+            distance: "300px",
+            easing: "cubic-bezier(0.425, 0.030, 0.285, 1.000)",
+            beforeReveal: (el) => setCoords({lat: el.dataset.lat, long: el.dataset.long})
+        });
         // ScrollReveal()
-        //     .reveal('.photo:nth-child(even)', {
-        //         reset: false,
-        //         viewFactor: 0.5,
-        //         distance: "300px",
-        //         origin: "right"
-        //     });
-        
+        //     .reveal('.photo:nth-child(even)', {origin: "right", ...options});
+
         // Get all image nodes
-        imagesRef.current = [...listRef.current.querySelectorAll(".photo")];
+        // imagesRef.current = [...listRef.current.querySelectorAll(".photo")];
+        return function cleanup() {
+            ScrollReveal().destroy();
+        }
     }, []);
 
     return (
-        <section id="photos">
-            <LocationDisplay imagesRef={imagesRef}/>
+        <section className="photos">
+            <div className="presentation">
+                Here are a few photos from home and various trips around the world.
+                Scroll down to start the journey!
+            </div>
+            {/* <LocationDisplay imagesRef={imagesRef}/> */}
+            <Earth lat={coords.lat} long={coords.long}/>
             <ul ref={listRef}>
                 {photos.map(photo =>
                     <Photo key={photo.src} {...photo}/>
@@ -66,7 +71,6 @@ function LocationDisplay(props) {
     });
 
     const images = props.imagesRef.current;
-    console.log(images);
     let lat = 0;
     let long = 0;
     for (let i = images.length - 1; i >= 0; i--) {
@@ -91,6 +95,7 @@ function Photo(props) {
                 poster={"/photos/" + props.poster}
                 preload="none"
                 controls
+                playsInline
                 data-lat={props.lat}
                 data-long={props.long}>
             </video>;
