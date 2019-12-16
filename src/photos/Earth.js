@@ -14,7 +14,7 @@ function Earth(props) {
     useEffect(() => {
         const renderer = new THREE.WebGLRenderer({
             canvas: canvasRef.current,
-            alpha: false,
+            alpha: true,
             antialias: false
         });
 
@@ -24,7 +24,7 @@ function Earth(props) {
 
         const scene = new THREE.Scene();
         // scene.autoUpdate = false;
-        scene.background = new THREE.Color(0x070707);
+        // scene.background = new THREE.Color(0x070707);
 
         renderRef.current = () => renderer.render(scene, camera);
 
@@ -41,15 +41,18 @@ function Earth(props) {
             const sphere = new THREE.SphereBufferGeometry(200, 40, 40);
             // Map the texture to the material. 
             const material = new THREE.MeshBasicMaterial({
-                map: texture
+                map: texture,
+                // color: 0x0a0a12,
                 // alphaMap: alpha,
                 // side: THREE.DoubleSide,
                 // transparent: false,
             });
             // Create a new mesh with sphere geometry.
             const mesh = new THREE.Mesh(sphere, material);
+            mesh.matrixAutoUpdate = false;
 
             mesh.rotation.y = -Math.PI / 2;
+            mesh.updateMatrix();
 
             return mesh;
         }
@@ -116,7 +119,7 @@ function Earth(props) {
         }
     }, [props.lat, props.long]);
 
-    return <canvas className="earth" ref={canvasRef}></canvas>;
+    return <canvas ref={canvasRef}></canvas>;
 }
 
 export default Earth;

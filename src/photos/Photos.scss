@@ -1,8 +1,7 @@
 
 .photos {
-    background-color: #070707;
+    // background-color: #070707;
     padding: 4%;
-    perspective: 3000px;
 
     .presentation {
         max-width: 600px;
@@ -35,6 +34,7 @@
         // left: 50%;
         // transform: translate3d(-50%, -50%, 0);
         display: block;
+        visibility: hidden;
         max-width: 100%;
         max-height: 90vh;
         width: auto;
@@ -47,8 +47,22 @@
 }
 
 .earth {
+    display: block;
     position: fixed;
-    z-index: -100;
+    z-index: -5;
     top: 0;
     right: 0;
+}
+
+.page-enter {
+    .earth {
+        transform: translate3d(100%, 0, 0);
+    }
+}
+
+.page-enter-active {
+    .earth {
+        transform: translate3d(0%, 0, 0);
+        transition: transform ease-out 2s;
+    }
 }

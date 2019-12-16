@@ -23,7 +23,7 @@ html, body {
 
 section {
     position: absolute;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     top: 0;
     left: 0;
     right: 0;
@@ -39,18 +39,18 @@ section {
 
 .page-exit-active {
     opacity: 0;
-    transform: translate3d(0, 50vh, 0);
+    /* transform: translate3d(0, 50vh, 0); */
     transition: transform 1.5s ease-in-out, opacity 1.5s ease-in;
 }
 
 .page-enter {
     opacity: 1;
     z-index: 50;
-    transform: translate3d(0, -100vh, 0);
+    /* transform: translate3d(0, -100vh, 0); */
 }
 
 .page-enter-active {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    /* transform: translate3d(0, 0, 0); */
     transition: transform 1.5s ease-in-out, opacity 1s ease-out;
 }

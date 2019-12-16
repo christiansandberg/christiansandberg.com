@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,6 +19,12 @@ import './App.css';
 
 function WebPage() {
   let location = useLocation();
+
+  useEffect(() => {
+    window.addEventListener("load", () => {
+      document.querySelector(".loading").style.display = "none";
+    });
+  });
 
   return (
     <div className="App">
