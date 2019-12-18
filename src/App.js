@@ -26,6 +26,10 @@ function WebPage() {
     });
   });
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <div className="App">
       <Audio>

@@ -5,11 +5,15 @@ import earthTexture from './8081_earthlights4k.jpg';
 // import earthAlpha from './earth-alpha.jpg';
 
 
+const EARTH_TEXTURE = new THREE.TextureLoader().load(earthTexture);
+const EARTH_RADIUS = 200;
+
+
 function Earth(props) {
     const canvasRef = useRef();
     const globeRef = useRef();
     const renderRef = useRef();
-    const pointerContainerRef = useRef();
+    const pointerRef = useRef();
 
     useEffect(() => {
         const renderer = new THREE.WebGLRenderer({
@@ -20,7 +24,7 @@ function Earth(props) {
 
         const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 10000);
         // camera.autoUpdate = false;
-        camera.position.set(-50, 0, 600);
+        camera.position.set(-40, 0, 600);
 
         const scene = new THREE.Scene();
         // scene.autoUpdate = false;
@@ -35,13 +39,12 @@ function Earth(props) {
         globeRef.current = globe;
 
         function createEarth() {
-            const texture = new THREE.TextureLoader().load(earthTexture);
             // const alpha = new THREE.TextureLoader().load(earthAlpha);
             // Create the sphere
-            const sphere = new THREE.SphereBufferGeometry(200, 40, 40);
+            const sphere = new THREE.SphereBufferGeometry(EARTH_RADIUS, 40, 40);
             // Map the texture to the material. 
             const material = new THREE.MeshBasicMaterial({
-                map: texture,
+                map: EARTH_TEXTURE,
                 // color: 0x0a0a12,
                 // alphaMap: alpha,
                 // side: THREE.DoubleSide,
@@ -57,24 +60,42 @@ function Earth(props) {
             return mesh;
         }
 
-        function createPointer() {
-            const geometry = new THREE.OctahedronBufferGeometry(5);
-            const material = new THREE.MeshBasicMaterial({color: 0xffff00});
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.z = 205;
-            return mesh;
+        function createRings() {
+            const SEGMENTS = 64;
+            const RADIUS = EARTH_RADIUS + 2;
+            const geometry = new THREE.BufferGeometry();
+            const vertices = new Float32Array(3 * 2 * SEGMENTS);
+            for (let i = 0; i < SEGMENTS; i++) {
+                const a = i * 2 * Math.PI / SEGMENTS;
+                vertices[3 * i + 1] = RADIUS * Math.sin(a);
+                vertices[3 * i + 2] = RADIUS * Math.cos(a);
+            }
+            for (let i = SEGMENTS; i < 2 * SEGMENTS; i++) {
+                const a = i * 2 * Math.PI / SEGMENTS;
+                vertices[3 * i + 0] = RADIUS * Math.sin(a);
+                vertices[3 * i + 2] = RADIUS * Math.cos(a);
+            }
+            geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+            const material = new THREE.LineBasicMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.3
+            });
+            const lines = new THREE.LineLoop(geometry, material);
+
+            const group = new THREE.Group();
+            group.add(lines);
+            return group;
         }
 
-        const pointerContainer = new THREE.Group();
-        pointerContainer.add(createPointer());
-        pointerContainerRef.current = pointerContainer;
-
-        // globe.add(pointerContainer);
         globe.add(createEarth());
+        const pointer = pointerRef.current = createRings();
+        globe.add(pointer);
 
         function updateSize() {
+            const RATIO = 1.2;
             const HEIGHT = window.innerHeight;
-            const WIDTH = Math.min(HEIGHT, window.innerWidth);
+            const WIDTH = Math.min(HEIGHT * RATIO, window.innerWidth);
             camera.aspect = WIDTH / HEIGHT;
             camera.updateProjectionMatrix();
             renderer.setPixelRatio(window.devicePixelRatio);
@@ -92,25 +113,40 @@ function Earth(props) {
     useEffect(() => {
         let animId;
 
-        const animation = anime({
+        const globeAnimation = anime({
             targets: globeRef.current.rotation,
             x: props.lat * Math.PI / 180,
-            y: props.long * -Math.PI / 180,
+            y: (props.long - 15) * -Math.PI / 180,
             duration: 1500,
             easing: "cubicBezier(0.425, 0.030, 0.285, 1.000)",
-            // complete: () => cancelAnimationFrame(animId),
+            complete: () => cancelAnimationFrame(animId),
             autoplay: false
         });
 
-        pointerContainerRef.current.rotation.x = -props.lat * Math.PI / 180;
-        pointerContainerRef.current.rotation.y = -props.long * -Math.PI / 180;
+        const pointerLatAnimation = anime({
+            targets: pointerRef.current.children[0].rotation,
+            x: props.lat * -Math.PI / 180,
+            duration: 800,
+            easing: "cubicBezier(0.425, 0.030, 0.285, 1.000)",
+            autoplay: false
+        });
+
+        const pointerLongAnimation = anime({
+            targets: pointerRef.current.rotation,
+            y: props.long * Math.PI / 180,
+            duration: 800,
+            easing: "cubicBezier(0.425, 0.030, 0.285, 1.000)",
+            autoplay: false
+        });
 
         requestAnimationFrame(render);
 
         function render(now) {
             animId = requestAnimationFrame(render);
-            animation.tick(now);
-            globeRef.current.rotation.y += 0.0002;
+            globeAnimation.tick(now);
+            pointerLatAnimation.tick(now);
+            pointerLongAnimation.tick(now);
+            // globeRef.current.rotation.y += 0.0002;
             renderRef.current();
         }
 

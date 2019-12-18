@@ -10,7 +10,7 @@ ScrollReveal.debug = process.env.NODE_ENV === "development";
 
 function Photos() {
     const imagesRef = useRef();
-    const [coords, setCoords] = useState({lat: 60, long: 18});
+    const [coords, setCoords] = useState({lat: photos[0].lat, long: photos[0].long});
 
     useEffect(() => {
         ScrollReveal().reveal(".photo", {

@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useContext} from 'react';
+import React, {useRef, useEffect} from 'react';
 // import { AudioContext } from 'standardized-audio-context';
 import * as THREE from 'three';
 import {
