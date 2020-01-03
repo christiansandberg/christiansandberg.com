@@ -1,6 +1,12 @@
 .music {
     /* background: #01251F; */
-    padding: 15px 120px 50px;
+    padding: 15px 0px 50px 120px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
 
     .background {
         position: fixed;
@@ -67,6 +73,29 @@ ol.tracks {
             color: #999999;
         }
 
+        .play-pause-button {
+            cursor: pointer;
+            position: absolute;
+            left: 0;
+            bottom: 25px;
+            background: none;
+            border-width: 0;
+            color: white;
+            // transform: translateX(-30px);
+            opacity: 0;
+            transition: opacity 500ms linear,
+                        transform 800ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
+            svg {
+                width: 25px;
+                height: 25px;
+            }
+
+            &:hover {
+                opacity: 1 !important;
+            }
+        }
+
         .progress {
             // visibility: hidden;
             position: absolute;
@@ -80,8 +109,7 @@ ol.tracks {
             transition: width 250ms linear, opacity 2s linear;
         }
 
-        &::before {
-            content: '';
+        .progress-bg {
             position: absolute;
             bottom: 0px;
             height: 2px;
@@ -93,18 +121,6 @@ ol.tracks {
 
         .title {
             font-size: 140%;
-        }
-
-        .info {
-            /* margin-bottom: 2em; */
-            margin-left: 10px;
-            opacity: 0.8;
-            /* transform: scale(0.5); */
-            transform-origin: center left;
-            transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-            position: absolute;
-            bottom: 25px;
-            left: 0px;
         }
 
         a {
@@ -134,15 +150,32 @@ ol.tracks {
                 transition: transform 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
             }
 
-            &:hover {
-                .info {
-                    // color: black;
-                    transform: translateX(30px);
-                }
+            &:hover &::before {
+                transform: scaleX(1);
+            }
+        }
 
-                &::before {
-                    transform: scaleX(1);
-                }
+        .info {
+            /* margin-bottom: 2em; */
+            margin-left: 10px;
+            opacity: 0.8;
+            /* transform: scale(0.5); */
+            transform-origin: center left;
+            transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+            position: absolute;
+            bottom: 25px;
+            left: 0px;
+        }
+
+        &:hover, &.active {
+            .play-pause-button {
+                transform: translateX(0);
+                opacity: 0.5;
+            }
+
+            .info {
+                // color: black;
+                transform: translateX(30px);
             }
         }
 
@@ -166,11 +199,12 @@ ol.tracks {
                     // transform: scale(1) translateX(50px) !important;
                     /* margin-top: 30px; */
                     /* margin-bottom: 30px; */
+
                 }
             }
 
-            &::before {
-                opacity: 0.5;
+            .progress-bg {
+                opacity: 0.7;
             }
         }
     }

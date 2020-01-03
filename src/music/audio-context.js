@@ -107,6 +107,15 @@ function Audio(props) {
             pause: () => {
                 audioRef.current.pause();
                 audioCtx.suspend();
+            },
+            playPause: () => {
+                if (audioRef.current.paused) {
+                    audioCtx.resume();
+                    audioRef.current.play();
+                } else {
+                    audioRef.current.pause();
+                    audioCtx.suspend();
+                }
             }
         }
     }

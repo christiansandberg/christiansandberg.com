@@ -2,7 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn, faGithub, faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import './Home.css';
+import './Home.scss';
 
 
 const links = [
@@ -34,7 +34,7 @@ function Home() {
     ));
 
     return (
-        <section id="home">
+        <section className="home">
             <div className="background"></div>
             <div className="title">
                 <h1>

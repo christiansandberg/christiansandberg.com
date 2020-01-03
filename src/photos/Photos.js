@@ -25,7 +25,7 @@ function Photos() {
         });
 
         const imgLoad = imagesLoaded(imagesRef.current);
-        imgLoad.on("progress", () => ScrollReveal().sync());
+        imgLoad.on("progress", ScrollReveal().sync);
 
         return function cleanup() {
             ScrollReveal().destroy();
@@ -34,7 +34,7 @@ function Photos() {
 
     return (
         <section className="photos">
-            <div className="earth">
+            <div className="background">
                 <Earth lat={coords.lat} long={coords.long}/>
             </div>
             <div className="presentation">

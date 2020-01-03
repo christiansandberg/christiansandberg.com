@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import Visualizer from './Visualizer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 import mixInfo from './tracks.json';
 import './Music.scss';
 import { useAudioControls, useAudioElement, useSetSources, supportVisualizer } from './audio-context';
 
-function Music(props) {
+function Music() {
     return (
         <section className="music">
             <div className="background"></div>
             {supportVisualizer() && <Visualizer />}
-            {/* <div className="vignette"></div> */}
             <div className="presentation">
                 This is a mix of some of my progressive house productions,
                 remixes and mash-ups that have just been collecting dust
@@ -46,7 +47,7 @@ function Mix(props) {
         function handleKeyPress(e) {
             if (e.code === "Space") {
                 e.preventDefault();
-                audioControls.play();
+                audioControls.playPause();
             }
         }
 
@@ -93,57 +94,88 @@ function Mix(props) {
 
     return (
         <ol className={classes.join(" ")}>
-            {tracks.map((track, index) =>
-                <Track key={track.title}
+            {tracks.map((track, index) => {
+                const nextCue = tracks[index + 1] ? tracks[index + 1].cue : Infinity;
+                const active = (time !== null && time >= track.cue && time < nextCue);
+
+                return (
+                    <Track key={track.title}
                         number={index + 1}
-                        currentTrack={track}
-                        nextTrack={tracks[index + 1]}
+                        artist={track.artist}
+                        title={track.title}
+                        active={active}
+                        paused={paused}
+                        cue={track.cue}
+                        time={time - track.start}
+                        duration={track.end - track.start}
+                        audioControls={audioControls}
                         seekTo={seekTo}
-                        time={time} />
+                        />
+                    );
+                }
             )}
         </ol>
     );
 }
 
 function Track(props) {
-    const { start, cue, end, artist, title } = props.currentTrack;
-    const nextCue = props.nextTrack ? props.nextTrack.cue : Infinity;
-    const { time, seekTo, number } = props;
+    const {
+        artist,
+        title,
+        time,
+        duration,
+        cue,
+        active,
+        paused,
+        seekTo,
+        audioControls,
+        number} = props;
+    const progress = Math.min(Math.max(time / duration, 0), 1);
 
-    let className = (time !== null && time >= cue && time < nextCue) ? "active " : "";
-
-    if ((time <= start) || (time === null)) {
-        className += "cued";
-    } else if (time > end) {
-        className += "played";
+    let className;
+    if ((time <= 0) || (time === null)) {
+        className = "cued";
+    } else if (time > duration) {
+        className = "played";
     } else {
-        className += "playing";
+        className = "playing";
     }
 
-    const progress = (time - start) / (end - start);
-    const satProgress = Math.max(Math.min(progress, 1), 0);
     const progressStyle = {
-        width: satProgress * 100 + "%"
+        width: progress * 100 + "%"
     };
     const infoStyle = {
         // transitionDelay: (start * 0.001 + 0.5) + "s"
     }
 
-    const clickHandler = (e) => {
+    function clickHandler(e) {
         e.preventDefault();
         seekTo(cue);
     }
 
+    let buttonHandler;
+    if (!active) {
+        buttonHandler = () => seekTo(cue);
+    } else if (!paused) {
+        buttonHandler = audioControls.pause;
+    } else {
+        buttonHandler = audioControls.play;
+    }
+
     return (
-        <li className={className}>
+        <li className={className + (active ? " active" : "")}>
             <div className="number">{number.toString().padStart(2, "0")}.</div>
+            <div className="progress-bg"></div>
             <div className="progress" style={progressStyle}></div>
-            <a href={"#t-" + start} onClick={clickHandler}>
+            <a href={"#t-" + cue} onClick={clickHandler}>
                 <div className="info" style={infoStyle}>
                     <div className="artist">{artist}&nbsp;</div>
                     <div className="title">{title}</div>
                 </div>
             </a>
+            <button className="play-pause-button" onClick={buttonHandler}>
+                <FontAwesomeIcon icon={(paused || !active) ? faPlay : faPause} />
+            </button>
         </li>
     );
 }

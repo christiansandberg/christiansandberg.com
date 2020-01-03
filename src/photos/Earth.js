@@ -34,9 +34,8 @@ function Earth(props) {
 
         scene.add(camera);
 
-        const globe = new THREE.Group();
+        const globe = globeRef.current = new THREE.Group();
         scene.add(globe);
-        globeRef.current = globe;
 
         function createEarth() {
             // const alpha = new THREE.TextureLoader().load(earthAlpha);
@@ -44,11 +43,7 @@ function Earth(props) {
             const sphere = new THREE.SphereBufferGeometry(EARTH_RADIUS, 40, 40);
             // Map the texture to the material. 
             const material = new THREE.MeshBasicMaterial({
-                map: EARTH_TEXTURE,
-                // color: 0x0a0a12,
-                // alphaMap: alpha,
-                // side: THREE.DoubleSide,
-                // transparent: false,
+                map: EARTH_TEXTURE
             });
             // Create a new mesh with sphere geometry.
             const mesh = new THREE.Mesh(sphere, material);
@@ -94,12 +89,13 @@ function Earth(props) {
 
         function updateSize() {
             const RATIO = 1.2;
-            const HEIGHT = window.innerHeight;
-            const WIDTH = Math.min(HEIGHT * RATIO, window.innerWidth);
-            camera.aspect = WIDTH / HEIGHT;
+            const height = window.innerHeight;
+            const width = Math.min(height * RATIO, window.innerWidth);
+            camera.aspect = width / height;
             camera.updateProjectionMatrix();
             renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(WIDTH, HEIGHT);
+            renderer.setSize(width, height);
+            renderer.render(scene, camera);
         }
 
         updateSize();
@@ -134,7 +130,7 @@ function Earth(props) {
         const pointerLongAnimation = anime({
             targets: pointerRef.current.rotation,
             y: props.long * Math.PI / 180,
-            duration: 800,
+            duration: 600,
             easing: "cubicBezier(0.425, 0.030, 0.285, 1.000)",
             autoplay: false
         });

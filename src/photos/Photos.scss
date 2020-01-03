@@ -3,6 +3,14 @@
     // background-color: #070707;
     padding: 4%;
 
+    .background {
+        display: block;
+        position: fixed;
+        z-index: -5;
+        top: 0;
+        right: 0;
+    }
+
     .presentation {
         max-width: 600px;
     }
@@ -46,22 +54,14 @@
     }
 }
 
-.earth {
-    display: block;
-    position: fixed;
-    z-index: -5;
-    top: 0;
-    right: 0;
-}
-
-.page-enter {
-    .earth {
+.page-enter .photos {
+    .background {
         transform: translate3d(100%, 0, 0);
     }
 }
 
-.page-enter-active {
-    .earth {
+.page-enter-active .photos {
+    .background {
         transform: translate3d(0%, 0, 0);
         transition: transform ease-out 2s;
     }
