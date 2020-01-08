@@ -1,6 +1,6 @@
 .music {
     /* background: #01251F; */
-    padding: 15px 0px 50px 120px;
+    padding: 15px 9% 50px;
     position: fixed;
     left: 0;
     right: 0;
@@ -34,16 +34,6 @@
         // opacity: 0.3;
         mix-blend-mode: overlay;
     }
-
-    .vignette {
-        position: fixed;
-        z-index: -9;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: radial-gradient(circle at 70%, transparent 50%, black 100%);
-    }
 }
 
 ol.tracks {
@@ -68,7 +58,7 @@ ol.tracks {
 
         .number {
             position: absolute;
-            left: -2em;
+            left: -6%;
             bottom: 25px;
             color: #999999;
         }
