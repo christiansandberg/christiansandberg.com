@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
  import './Menu.css';
 
 
@@ -7,9 +7,9 @@ function Menu() {
     return (
         <nav>
             <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/music">Music</Link></li>
-                <li><Link to="/photos">Photography</Link></li>
+                <li><NavLink to="/" exact>Home</NavLink></li>
+                <li><NavLink to="/music">Music</NavLink></li>
+                <li><NavLink to="/photos">Photography</NavLink></li>
             </ul>
         </nav>
     );

@@ -2,9 +2,14 @@ import React, {useState, useEffect} from 'react';
 import Visualizer from './Visualizer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import {
+    useAudioControls,
+    useAudioElement,
+    useSetSources,
+    supportVisualizer
+} from './audio-context';
 import mixInfo from './tracks.json';
 import './Music.scss';
-import { useAudioControls, useAudioElement, useSetSources, supportVisualizer } from './audio-context';
 
 function Music() {
     return (
@@ -13,9 +18,10 @@ function Music() {
                 <div className="background"></div>
                 {supportVisualizer() && <Visualizer />}
                 <div className="presentation">
-                    This is a mix of some of my progressive house productions,
+                    Here's a collection of some of my house productions,
                     remixes and mash-ups that have just been collecting dust
                     on a hard drive for the last decade.
+                    Maybe you'll find something you like, or not...
                 </div>
                 <Mix tracks={mixInfo.tracks} />
             </div>

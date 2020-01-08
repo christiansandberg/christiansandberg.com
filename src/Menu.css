@@ -50,7 +50,7 @@ nav a, nav a::after {
 }
 
 nav a:hover {
-    transform: translateY(5px);
+    /* transform: translateY(5px); */
     /* padding: 20px 30px; */
     /* border-bottom: 2px solid white; */
     opacity: 1;
@@ -62,10 +62,10 @@ nav a::after {
     content: '';
     border-bottom: solid 2px rgba(255,255,255,0.5);
     transform: scaleX(0);
-    transition-delay: 0.3s;
+    /* transition-delay: 0.3s; */
 }
 
-nav a:hover::after {
+nav a:hover::after, nav a.active::after {
     transform: scaleX(1);
 }
 /* 
