@@ -14,7 +14,7 @@ import Music from './music';
 import {Audio} from './music/audio-context';
 import Photos from './photos';
 import Menu from './Menu';
-import './App.css';
+import './App.scss';
 
 
 function WebPage() {
@@ -35,7 +35,7 @@ function WebPage() {
       <Audio>
         <Menu/>
         <TransitionGroup>
-          <CSSTransition key={location.key} appear classNames="page" timeout={3000}>
+          <CSSTransition key={location.key} appear classNames="page" timeout={5000}>
             <Switch location={location}>
               <Route path="/" exact>
                 <Home/>

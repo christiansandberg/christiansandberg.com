@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Sarpanch:400,900&display=swap');
 
 body {
-    font-family: 'Sarpanch', Arial, sans-serif;
+    font-family: 'Sarpanch', monospace;
     font-size: 20px;
     color: white;
     background-color: #070707; /*hsl(45, 30%, 0%);*/
@@ -29,6 +29,10 @@ section {
     right: 0;
 }
 
+.scroll-container {
+    width: 100%;
+}
+
 .presentation {
     padding: 15px;
     margin: 100px 0 50px;
@@ -39,18 +43,38 @@ section {
 
 .page-exit-active {
     opacity: 0;
-    /* transform: translate3d(0, 50vh, 0); */
-    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in;
+    transform: translate3d(40vw, 0, 0);
+    transition: transform 1.5s ease-in-out, opacity 1s linear;
+    // transition-delay: 0.5s;
+
+    .background {
+        opacity: 0;
+        transform: translate3d(10vw, 0, 0);
+        transition: transform 1.5s ease-in-out, opacity 1.5s linear;
+    }
 }
 
 .page-enter {
-    opacity: 1;
+    opacity: 0;
     z-index: 50;
-    /* transform: translate3d(0, -100vh, 0); */
+    transform: translate3d(40vw, 0, 0);
+
+    .background {
+        opacity: 0;
+        transform: translate3d(-10vw, 0, 0);
+    }
 }
 
 .page-enter-active {
     opacity: 1;
-    /* transform: translate3d(0, 0, 0); */
-    transition: transform 1.5s ease-in-out, opacity 1s ease-out;
+    transform: translate3d(0, 0, 0);
+    transition: transform 1.5s ease-in-out, opacity 1s ease-in;
+    transition-delay: 1s;
+
+    .background {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition: transform 1.5s ease-in-out, opacity 2s ease-in;
+        transition-delay: 1s;
+    }
 }

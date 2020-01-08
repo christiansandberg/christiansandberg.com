@@ -54,15 +54,17 @@
     }
 }
 
-.page-enter .photos {
-    .background {
-        transform: translate3d(100%, 0, 0);
-    }
-}
+// .page-enter .photos {
+//     .background {
+//         transform: translate3d(100vw, 0, 0);
+//         opacity: 1;
+//     }
+// }
 
-.page-enter-active .photos {
-    .background {
-        transform: translate3d(0%, 0, 0);
-        transition: transform ease-out 2s;
-    }
-}
+// .page-enter-active .photos {
+//     .background {
+//         transform: translate3d(0, 0, 0);
+//         transition: transform ease-out 2s;
+//         transition-delay: 3s;
+//     }
+// }

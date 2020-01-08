@@ -9,14 +9,16 @@ import { useAudioControls, useAudioElement, useSetSources, supportVisualizer } f
 function Music() {
     return (
         <section className="music">
-            <div className="background"></div>
-            {supportVisualizer() && <Visualizer />}
-            <div className="presentation">
-                This is a mix of some of my progressive house productions,
-                remixes and mash-ups that have just been collecting dust
-                on a hard drive for the last decade.
+            <div className="scroll-container">
+                <div className="background"></div>
+                {supportVisualizer() && <Visualizer />}
+                <div className="presentation">
+                    This is a mix of some of my progressive house productions,
+                    remixes and mash-ups that have just been collecting dust
+                    on a hard drive for the last decade.
+                </div>
+                <Mix tracks={mixInfo.tracks} />
             </div>
-            <Mix tracks={mixInfo.tracks} />
         </section>
     );
 }
