@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn, faGithub, faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
@@ -24,10 +25,18 @@ const links = [
     }
 ];
 
+function registerClick(url) {
+    ReactGA.event({
+        category: "Links",
+        action: "click",
+        label: url
+    });
+}
+
 function Home() {
     const list = links.map(l => (
         <li key={l.url}>
-            <a href={l.url} target="_blank" rel="noopener noreferrer">
+            <a href={l.url} onClick={() => registerClick(l.url)} target="_blank" rel="noopener noreferrer">
                 <FontAwesomeIcon icon={l.icon} />
             </a>
         </li>

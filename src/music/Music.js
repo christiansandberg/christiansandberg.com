@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import ReactGA from 'react-ga';
+import findLast from 'lodash/findLast';
 import Visualizer from './Visualizer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
@@ -15,8 +17,9 @@ function Music() {
     return (
         <section className="music">
             <div className="scroll-container">
-                <div className="background"></div>
-                {supportVisualizer() && <Visualizer />}
+                <div className="background">
+                    {supportVisualizer() && <Visualizer />}
+                </div>
                 <div className="presentation">
                     Here's a collection of some of my house productions,
                     remixes and mash-ups that have just been collecting dust
@@ -36,6 +39,7 @@ function Mix(props) {
     const setSources = useSetSources();
     const [time, setTime] = useState(audioEl.current ? audioEl.current.currentTime : null);
     const [paused, setPaused] = useState(audioEl.current ? audioEl.current.paused : true);
+    const [activeTrack, setActiveTrack] = useState(null);
 
     useEffect(() => {
         const audio = audioEl.current;
@@ -52,6 +56,12 @@ function Mix(props) {
             setPaused(audio.paused);
         }
 
+        function handleEnded() {
+            setPaused(true);
+            setTime(null);
+            setActiveTrack(null);
+        }
+
         function handleKeyPress(e) {
             if (e.code === "Space") {
                 e.preventDefault();
@@ -64,7 +74,7 @@ function Mix(props) {
             audio.addEventListener("timeupdate", handleTimeUpdate);
             audio.addEventListener("play", handlePausedUpdate);
             audio.addEventListener("pause", handlePausedUpdate);
-            audio.addEventListener("ended", handlePausedUpdate);
+            audio.addEventListener("ended", handleEnded);
         }
         document.addEventListener("keydown", handleKeyPress);
 
@@ -74,11 +84,37 @@ function Mix(props) {
                 audio.removeEventListener("timeupdate", handleTimeUpdate);
                 audio.removeEventListener("play", handlePausedUpdate);
                 audio.removeEventListener("pause", handlePausedUpdate);
-                audio.removeEventListener("ended", handlePausedUpdate);
+                audio.removeEventListener("ended", handleEnded);
             }
             document.removeEventListener("keydown", handleKeyPress);
         }
     }, [audioEl, audioControls, tracks]);
+
+    // Update active track
+    useEffect(() => {
+        if (!paused) {
+            setActiveTrack(findLast(tracks, t => time >= t.cue));
+        }
+    }, [tracks, time, paused]);
+
+    // Report track statistics
+    useEffect(() => {
+        if (activeTrack) {
+            ReactGA.event({
+                category: "Music",
+                action: "start",
+                label: activeTrack.title
+            });
+
+            return function played() {
+                ReactGA.event({
+                    category: "Music",
+                    action: "played",
+                    label: activeTrack.title
+                });
+            }
+        }
+    }, [activeTrack]);
 
     useEffect(() => {
         setSources(mixInfo.sources);
@@ -102,25 +138,20 @@ function Mix(props) {
 
     return (
         <ol className={classes.join(" ")}>
-            {tracks.map((track, index) => {
-                const nextCue = tracks[index + 1] ? tracks[index + 1].cue : Infinity;
-                const active = (time !== null && time >= track.cue && time < nextCue);
-
-                return (
-                    <Track key={track.title}
-                        number={index + 1}
-                        artist={track.artist}
-                        title={track.title}
-                        active={active}
-                        paused={paused}
-                        cue={track.cue}
-                        time={time - track.start}
-                        duration={track.end - track.start}
-                        audioControls={audioControls}
-                        seekTo={seekTo}
-                        />
-                    );
-                }
+            {tracks.map((track, index) => (
+                <Track key={track.title}
+                    number={index + 1}
+                    artist={track.artist}
+                    title={track.title}
+                    active={track === activeTrack}
+                    paused={paused}
+                    cue={track.cue}
+                    time={time - track.start}
+                    duration={track.end - track.start}
+                    audioControls={audioControls}
+                    seekTo={seekTo}
+                    />
+                )
             )}
         </ol>
     );
@@ -156,11 +187,6 @@ function Track(props) {
         // transitionDelay: (start * 0.001 + 0.5) + "s"
     }
 
-    function clickHandler(e) {
-        e.preventDefault();
-        seekTo(cue);
-    }
-
     let buttonHandler;
     if (!active) {
         buttonHandler = () => seekTo(cue);
@@ -175,14 +201,14 @@ function Track(props) {
             <div className="number">{number.toString().padStart(2, "0")}.</div>
             <div className="progress-bg"></div>
             <div className="progress" style={progressStyle}></div>
-            <a href={"#t-" + cue} onClick={clickHandler}>
+            <button className="click-area" onClick={buttonHandler}>
+                <div className="play-pause">
+                    <FontAwesomeIcon icon={(paused || !active) ? faPlay : faPause} />
+                </div>
                 <div className="info" style={infoStyle}>
                     <div className="artist">{artist}&nbsp;</div>
                     <div className="title">{title}</div>
                 </div>
-            </a>
-            <button className="play-pause-button" onClick={buttonHandler}>
-                <FontAwesomeIcon icon={(paused || !active) ? faPlay : faPause} />
             </button>
         </li>
     );
