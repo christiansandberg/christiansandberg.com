@@ -20,6 +20,7 @@ import './App.scss';
 
 ReactGA.initialize('UA-335161-6', {
   debug: process.env.NODE_ENV === "development",
+  testMode: process.env.NODE_ENV === "development",
   gaOptions: {siteSpeedSampleRate: 100}
 });
 
@@ -33,10 +34,7 @@ function WebPage() {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (process.env.NODE_ENV === "production") {
-      ReactGA.pageview(location.pathname);
-    }
+    ReactGA.pageview(location.pathname);
   }, [location.pathname]);
 
   return (
@@ -44,7 +42,7 @@ function WebPage() {
       <Audio>
         <Menu/>
         <TransitionGroup>
-          <CSSTransition key={location.key} appear classNames="page" timeout={5000}>
+          <CSSTransition key={location.key} appear classNames="page" timeout={4000}>
             <Switch location={location}>
               <Route path="/" exact>
                 <Home/>

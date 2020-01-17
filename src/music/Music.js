@@ -183,9 +183,6 @@ function Track(props) {
     const progressStyle = {
         width: progress * 100 + "%"
     };
-    const infoStyle = {
-        // transitionDelay: (start * 0.001 + 0.5) + "s"
-    }
 
     let buttonHandler;
     if (!active) {
@@ -205,7 +202,7 @@ function Track(props) {
                 <div className="play-pause">
                     <FontAwesomeIcon icon={(paused || !active) ? faPlay : faPause} />
                 </div>
-                <div className="info" style={infoStyle}>
+                <div className="info">
                     <div className="artist">{artist}&nbsp;</div>
                     <div className="title">{title}</div>
                 </div>

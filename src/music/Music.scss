@@ -198,11 +198,14 @@ ol.tracks {
     }
 }
 
-.page-enter .tracks li .info {
-    transform: translateX(-100%);
+.page-enter-active {
+    .visualizer {
+        display: none;
+    }
 }
 
-.page-enter-active .tracks li .info {
-    transform: translateX(0);
-    transition: transform 1500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+.page-exit-active {
+    .visualizer {
+        display: none;
+    }
 }

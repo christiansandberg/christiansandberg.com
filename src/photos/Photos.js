@@ -13,6 +13,8 @@ function Photos() {
     const [coords, setCoords] = useState({lat: photos[0].lat, long: photos[0].long});
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         ScrollReveal().reveal(".photo", {
             reset: true,
             // viewFactor: 0.5,
@@ -28,6 +30,7 @@ function Photos() {
         imgLoad.on("progress", ScrollReveal().sync);
 
         return function cleanup() {
+            setTimeout(() => window.scrollTo(0, 0), 2000);
             ScrollReveal().destroy();
         }
     }, []);
