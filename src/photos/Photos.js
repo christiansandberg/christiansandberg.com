@@ -18,9 +18,9 @@ function Photos() {
         ScrollReveal().reveal(".photo", {
             reset: true,
             // viewFactor: 0.5,
-            duration: 400,
-            origin: "left",
-            scale: 0.5,
+            duration: 500,
+            origin: "right",
+            scale: 0.2,
             distance: "200px",
             easing: "cubic-bezier(0.425, 0.030, 0.285, 1.000)",
             beforeReveal: el => setCoords({lat: el.dataset.lat, long: el.dataset.long})

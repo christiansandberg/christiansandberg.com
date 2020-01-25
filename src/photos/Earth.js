@@ -18,17 +18,17 @@ function Earth(props) {
     useEffect(() => {
         const renderer = new THREE.WebGLRenderer({
             canvas: canvasRef.current,
-            alpha: true,
+            // alpha: true,
             antialias: false
         });
 
         const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 10000);
         // camera.autoUpdate = false;
-        camera.position.set(-40, 0, 600);
+        camera.position.set(0, 0, 600);
 
         const scene = new THREE.Scene();
         // scene.autoUpdate = false;
-        // scene.background = new THREE.Color(0x070707);
+        scene.background = new THREE.Color(0x070707);
 
         renderRef.current = () => renderer.render(scene, camera);
 
@@ -88,11 +88,11 @@ function Earth(props) {
         globe.add(pointer);
 
         function updateSize() {
-            const RATIO = 1.2;
             const height = window.innerHeight;
-            const width = Math.min(height * RATIO, window.innerWidth);
+            const width = window.innerWidth;
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
+            camera.position.x = (camera.aspect - 1) * -130;
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(width, height);
             renderer.render(scene, camera);
