@@ -22,7 +22,7 @@ function Earth(props) {
             antialias: false
         });
 
-        const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 10000);
+        const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 10000);
         // camera.autoUpdate = false;
         camera.position.set(0, 0, 600);
 
@@ -92,7 +92,7 @@ function Earth(props) {
             const width = window.innerWidth;
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
-            camera.position.x = (camera.aspect - 1) * -130;
+            camera.position.x = Math.min((camera.aspect - 1) * -160, 0);
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(width, height);
             renderer.render(scene, camera);

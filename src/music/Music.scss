@@ -51,7 +51,7 @@ ol.tracks {
         padding: 0;
         // overflow-x: hidden;
         transform: translateX(0);
-        /* height: 60px; */
+        height: 80px;
         font-size: 80%;
         line-height: 1.2em;
         max-width: 700px;
@@ -59,24 +59,24 @@ ol.tracks {
         .number {
             position: absolute;
             left: -6%;
-            bottom: 25px;
+            bottom: 16px;
             color: #999999;
         }
 
         .play-pause {
             position: absolute;
-            left: 0;
+            left: 5px;
             bottom: 18px;
             background: none;
             color: white;
             // transform: translateX(-30px);
             opacity: 0;
-            transition: opacity 500ms linear,
+            transition: opacity 200ms linear,
                         transform 800ms cubic-bezier(0.075, 0.82, 0.165, 1);
 
             svg {
-                width: 25px;
-                height: 25px;
+                width: 30px;
+                height: 30px;
             }
 
             &:hover {
@@ -106,14 +106,6 @@ ol.tracks {
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.6s cubic-bezier(0.075, 0.82, 0.165, 1);
-        }
-
-        .artist {
-            opacity: 0.6;
-        }
-        
-        .title {
-            font-size: 140%;
         }
 
         .click-area {
@@ -158,6 +150,14 @@ ol.tracks {
             position: absolute;
             bottom: 18px;
             left: 0px;
+
+            .artist {
+                opacity: 0.6;
+            }
+        
+            .title {
+                font-size: 140%;
+            }
         }
 
         &:hover, &.active {
@@ -168,7 +168,7 @@ ol.tracks {
 
             .info {
                 // color: black;
-                transform: translateX(30px);
+                transform: translateX(40px);
             }
         }
 
