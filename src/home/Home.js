@@ -44,20 +44,22 @@ function Home() {
 
     return (
         <section className="home">
-            <div className="background"></div>
-            <div className="title">
-                <h1>
-                    <div className="christian">Christian</div>
-                    <div className="sandberg">Sandberg</div>
-                </h1>
+            <div className="scroll-container">
+                <div className="background"></div>
+                <div className="title">
+                    <h1>
+                        <div className="christian">Christian</div>
+                        <div className="sandberg">Sandberg</div>
+                    </h1>
+                </div>
+                <div className="presentation">
+                    Hi! I'm just an ordinary software developer
+                    who enjoys music, photography and web technologies.
+                    Welcome to my little experimentation platform which is
+                    still under construction!
+                </div>
+                <ul className="links">{list}</ul>
             </div>
-            <div className="presentation">
-                Hi! I'm just an embedded software developer from Sweden
-                who enjoys music, photography and web technologies.
-                Welcome to my little experimentation platform which is
-                still under construction!
-            </div>
-            <ul className="links">{list}</ul>
         </section>
     );
 }

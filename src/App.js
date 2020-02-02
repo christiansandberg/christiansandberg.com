@@ -29,7 +29,7 @@ function WebPage() {
 
   useEffect(() => {
     window.addEventListener("load", () => {
-      document.querySelector(".loading").style.display = "none";
+      document.querySelector(".loading").style.opacity = 0;
     });
   });
 
@@ -38,26 +38,28 @@ function WebPage() {
   }, [location.pathname]);
 
   return (
-    <div className="App">
-      <Audio>
-        <Menu/>
-        <TransitionGroup>
-          <CSSTransition key={location.key} appear classNames="page" timeout={4000}>
-            <Switch location={location}>
-              <Route path="/" exact>
-                <Home/>
-              </Route>
-              <Route path="/music">
-                <Music/>
-              </Route>
-              <Route path="/photos">
-                <Photos/>
-              </Route>
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup>
-      </Audio>
-    </div>
+    <CSSTransition in={true} classNames="app" appear timeout={7000}>
+      <div className="app">
+        <Audio>
+          <Menu/>
+          <TransitionGroup>
+            <CSSTransition key={location.key} appear classNames="page" timeout={4000}>
+              <Switch location={location}>
+                <Route path="/" exact>
+                  <Home/>
+                </Route>
+                <Route path="/music">
+                  <Music/>
+                </Route>
+                <Route path="/photos">
+                  <Photos/>
+                </Route>
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        </Audio>
+      </div>
+    </CSSTransition>
   );
 }
 

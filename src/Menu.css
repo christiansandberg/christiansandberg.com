@@ -75,3 +75,13 @@ nav a:hover::after, nav a.active::after {
         font-size: 20px;
     }
 } */
+
+.app-appear nav {
+    transform: translate3d(0, -300px, 0);
+}
+
+.app-appear-active nav {
+    transform: translate3d(0, 0, 0);
+    transition: transform 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition-delay: 0.8s;
+}
