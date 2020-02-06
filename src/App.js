@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,10 +26,12 @@ ReactGA.initialize('UA-335161-6', {
 
 function WebPage() {
   let location = useLocation();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     window.addEventListener("load", () => {
-      document.querySelector(".loading").style.opacity = 0;
+      document.body.classList.add("loaded");
+      setLoaded(true);
     });
   });
 
@@ -38,12 +40,12 @@ function WebPage() {
   }, [location.pathname]);
 
   return (
-    <CSSTransition in={true} classNames="app" appear timeout={7000}>
+    <CSSTransition in={loaded} classNames="app" appear timeout={7000}>
       <div className="app">
         <Audio>
           <Menu/>
           <TransitionGroup>
-            <CSSTransition key={location.key} appear classNames="page" timeout={4000}>
+            <CSSTransition key={location.key} classNames="page" timeout={2500}>
               <Switch location={location}>
                 <Route path="/" exact>
                   <Home/>

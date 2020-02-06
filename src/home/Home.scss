@@ -35,7 +35,7 @@
         position: absolute;
         left: 0;
         right: 0;
-        bottom: -15px;
+        bottom: 20px;
         margin: 0;
         /* font-family: 'Dosis', 'Arial Narrow', sans-serif; */
         font-size: 4.5em;
@@ -66,8 +66,7 @@
 
     .presentation {
         position: relative;
-        background-color: rgba(0, 0, 0, 0.4);
-        text-shadow: 0 2px 2px black;
+        // text-shadow: 0 2px 2px black;
         width: 48%;
         /* max-width: 500px; */
         margin: 30px;

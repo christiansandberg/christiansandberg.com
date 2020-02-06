@@ -22,18 +22,44 @@
     <style>
     body {
       background-color: #070707;
+      color: white;
     }
 
     .loading {
       height: 100vh;
-      transition: opacity 0.5s linear;
+      transition: transform 1.5s ease-in-out, opacity 0.3s linear;
     }
 
     .loading-content {
       position: absolute;
       text-align: center;
+      font-family: monospace;
+      font-size: 20px;
       top: 70%;
       left: 70%;
+      animation-duration: 1s;
+      animation-name: flash;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    .loaded .loading {
+      transform: translateX(50vw);
+      opacity: 0;
+    }
+
+    @keyframes flash {
+      from {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0.4;
+      }
     }
     </style>
   </head>

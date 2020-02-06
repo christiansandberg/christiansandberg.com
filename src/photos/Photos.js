@@ -58,7 +58,7 @@ function Photo(props) {
         return <video
                 className="photo"
                 src={process.env.REACT_APP_MEDIA_URL + props.src}
-                poster={"/photos/" + props.poster}
+                poster={process.env.PUBLIC_URL + "/photos/" + props.poster}
                 width={props.width}
                 height={props.height}
                 preload="none"
@@ -70,7 +70,7 @@ function Photo(props) {
     } else {
         return <img
                 className="photo"
-                src={"/photos/" + props.src}
+                src={process.env.PUBLIC_URL + "/photos/" + props.src}
                 width={props.width}
                 height={props.height}
                 alt=""
