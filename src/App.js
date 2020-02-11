@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,6 +10,7 @@ import {
   CSSTransition
 } from "react-transition-group";
 import ReactGA from 'react-ga';
+import imagesLoaded from 'imagesloaded';
 import Home from './home';
 import Music from './music';
 import {Audio} from './music/audio-context';
@@ -27,21 +28,22 @@ ReactGA.initialize('UA-335161-6', {
 function WebPage() {
   let location = useLocation();
   const [loaded, setLoaded] = useState(false);
+  const appRef = useRef();
 
   useEffect(() => {
-    window.addEventListener("load", () => {
+    imagesLoaded(appRef.current, { background: ".background" }, () => {
       document.body.classList.add("loaded");
       setLoaded(true);
     });
-  });
+  }, []);
 
   useEffect(() => {
     ReactGA.pageview(location.pathname);
   }, [location.pathname]);
 
   return (
-    <CSSTransition in={loaded} classNames="app" appear timeout={7000}>
-      <div className="app">
+    <CSSTransition in={loaded} classNames="app" timeout={4000}>
+      <div className="app" ref={appRef}>
         <Audio>
           <Menu/>
           <TransitionGroup>

@@ -5,10 +5,8 @@
 
     .background {
         display: block;
-        position: fixed;
-        z-index: -5;
         top: 0;
-        right: 0;
+        bottom: 0;
     }
 
     .presentation {
@@ -23,7 +21,7 @@
         li {
             display: block;
             // height: 100vh;
-            margin-top: 100vh;
+            margin-top: 80vh;
             text-align: left;
         }
 

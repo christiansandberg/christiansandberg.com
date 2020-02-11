@@ -2,9 +2,9 @@
 
 body {
     font-family: 'Sarpanch', monospace;
-    font-size: 20px;
+    font-size: 18px;
     color: white;
-    background-color: #070707; /*hsl(45, 30%, 0%);*/
+    background-color: #0a0a0a; /*hsl(45, 30%, 0%);*/
     /* background: radial-gradient(circle, hsl(45, 0%, 15%) 0%, hsl(0, 0%, 5%) 80%) no-repeat; */
     /* background-attachment: fixed; */
     min-height: 100vh;
@@ -41,6 +41,19 @@ section {
     right: 0;
 }
 
+.background {
+    position: fixed;
+    z-index: -50;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 .scroll-container {
     width: 100%;
 }
@@ -52,6 +65,35 @@ section {
     line-height: 150%;
     border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+.app:not(.app-enter-done) {
+    section {
+        opacity: 0;
+        z-index: 50;
+        transform: translate3d(0, -100vh, 0);
+    }
+
+    .background {
+        opacity: 0;
+        transform: translate3d(0, 20vh, 0);
+    }
+}
+
+.app-enter-active:not(.app-enter-done) {
+    section {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition: transform 2s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1s ease-in;
+        transition-delay: 0.75s;
+    }
+
+    .background {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transition: transform 2s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1.5s ease-in;
+        transition-delay: 0.75s;
+    }
 }
 
 .page-exit-active {
@@ -89,26 +131,5 @@ section {
         transform: translate3d(0, 0, 0);
         transition: transform 1.5s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1.5s ease-in;
         transition-delay: 0.75s;
-    }
-}
-
-.page-appear {
-    opacity: 0;
-    transform: translate3d(-40vw, 0, 0);
-
-    .background {
-        opacity: 0;
-    }
-}
-
-.page-appear-active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    transition: transform 1.5s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 1s ease-in;
-    
-    .background {
-        opacity: 1;
-        transition: opacity 2s linear;
-        transition-delay: 1s;
     }
 }
