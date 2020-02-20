@@ -1,10 +1,10 @@
 nav {
     position: fixed;
     top: 10px;
-    right: 10px;
+    right: 15px;
     /* width: 100px; */
     z-index: 100;
-    /* font-size: 90%; */
+    font-size: 95%;
     /* background-color: rgba(0, 0, 0, 0.5); */
     /* padding: 15px; */
 }
@@ -12,6 +12,7 @@ nav {
 @media (max-width: 700px) {
     nav {
         left: 0;
+        right: 0;
         font-size: 90%;
     }
 }
@@ -37,7 +38,7 @@ nav a {
     color: white;
     /* border-bottom: 2px solid white; */
     /* border-left: 2px solid white; */
-    padding: 5px 20px 0px;
+    padding: 5px 15px 0px;
     /* border: 2px solid white; */
     text-transform: lowercase;
 

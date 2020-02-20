@@ -128,7 +128,7 @@ function Visualizer(props) {
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
         function updateSize() {
-            visualizer.setSize(window.innerWidth, window.innerHeight - 100);
+            visualizer.setSize(window.innerWidth - 50, window.innerHeight - 80);
         }
 
         function render() {
