@@ -98,13 +98,13 @@ section {
 
 .page-exit-active {
     opacity: 0;
-    transform: translate3d(100vw, 0, 0);
+    transform: translate3d(0, 100vh, 0);
     transition: transform 1.5s cubic-bezier(0.835, 0, 0.925, 0.18), opacity 1s linear;
     // transition-delay: 0.5s;
 
     .background {
         opacity: 0;
-        transform: translate3d(-20vw, 0, 0);
+        transform: translate3d(0, -20vh, 0);
         transition: transform 1.5s cubic-bezier(0.835, 0, 0.925, 0.18), opacity 2s linear;
     }
 }
@@ -112,11 +112,11 @@ section {
 .page-enter {
     opacity: 0;
     z-index: 50;
-    transform: translate3d(-100vw, 0, 0);
+    transform: translate3d(0, -100vh, 0);
 
     .background {
         opacity: 0;
-        transform: translate3d(20vw, 0, 0);
+        transform: translate3d(0, 20vh, 0);
     }
 }
 

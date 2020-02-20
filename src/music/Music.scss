@@ -81,7 +81,7 @@ ol.tracks {
             // visibility: hidden;
             position: absolute;
             bottom: 0px;
-            height: 2px;
+            height: 1px;
             width: 0%;
             opacity: 0;
             background-color: white;
@@ -92,10 +92,10 @@ ol.tracks {
         .progress-bg {
             position: absolute;
             bottom: 0px;
-            height: 2px;
+            height: 1px;
             width: 100%;
-            opacity: 0.75;
-            background-color: #999999;
+            opacity: 1;
+            background-color: #888888;
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.6s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -182,7 +182,7 @@ ol.tracks {
         &.active {
             .click-area {
                 // height: 6em;
-                text-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
                 // font-size: 150%;
                 // line-height: 1.4em;
                 // border-bottom: 2px solid rgba(200, 200, 200, 0.5);
@@ -198,9 +198,9 @@ ol.tracks {
             }
 
             .progress {
-                box-shadow: 0 0 7px 1px rgba(255, 255, 255, 0.75);
+                box-shadow: 0 0 7px 1px rgba(255, 255, 255, 0.5);
                 opacity: 1;
-                height: 2px;
+                height: 1px;
             }
 
             .progress-bg {

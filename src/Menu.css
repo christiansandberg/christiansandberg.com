@@ -1,12 +1,12 @@
 nav {
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     /* width: 100px; */
     z-index: 100;
     /* font-size: 90%; */
     /* background-color: rgba(0, 0, 0, 0.5); */
-    padding: 15px;
+    /* padding: 15px; */
 }
 
 @media (max-width: 700px) {
@@ -46,7 +46,7 @@ nav a {
 }
 
 nav a, nav a::after {
-    transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: transform 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
     /* transform-origin:  0% 50%; */
 }
 
@@ -59,10 +59,11 @@ nav a:hover {
 
 nav a::after {
     display: block;
-    margin: 0 -10px;
+    /* margin: 0 -10px; */
     content: '';
-    border-bottom: solid 2px rgba(255,255,255,1);
+    border-bottom: solid 1px rgba(255,255,255,1);
     transform: scaleX(0);
+    transform-origin: left;
     /* transition-delay: 0.3s; */
 }
 
