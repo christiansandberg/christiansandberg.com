@@ -15,7 +15,7 @@ import Home from './home';
 import Music from './music';
 import {Audio} from './music/audio-context';
 import Photos from './photos';
-import Menu from './Menu';
+import Menu from './menu';
 import './App.scss';
 
 

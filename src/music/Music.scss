@@ -56,6 +56,12 @@ ol.tracks {
             color: #999999;
         }
 
+        @media (max-width: 700px) {
+            .number {
+                display: none;
+            }
+        }
+
         .play-pause {
             position: absolute;
             left: 5px;
