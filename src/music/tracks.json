@@ -133,23 +133,31 @@
             "type": "Remix"
         },
         {
-            "start": 2952.959,
-            "cue": 2967.728,
-            "end": 3248.344,
+            "start": 2938.190,
+            "cue": 2997.267,
+            "end": 3300.555,
+            "artist": "Jakatta",
+            "title": "American Dream",
+            "type": "Remix"
+        },
+        {
+            "start": 3241.017,
+            "cue": 3271.017,
+            "end": 3551.632,
             "title": "Shimmering Lights",
             "type": "Original"
         },
         {
-            "start": 3189.267,
-            "cue": 3218.805,
-            "end": 3483.700,
+            "start": 3492.555,
+            "cue": 3522.093,
+            "end": 3786.988,
             "title": "Rain Clouds",
             "type": "Original"
         },
         {
-            "start": 3396.036,
-            "cue": 3425.575,
-            "end": 3701.200,
+            "start": 3699.324,
+            "cue": 3728.863,
+            "end": 4005.425,
             "title": "Moth",
             "type": "Original"
         }

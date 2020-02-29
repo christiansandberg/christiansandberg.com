@@ -14,7 +14,8 @@ try {
 }
 
 const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-const useAudioCtx = (audioCtx !== null) && !iOS && true;
+const Edge = /Edge/.test(navigator.userAgent);
+const useAudioCtx = (audioCtx !== null) && !iOS && !Edge;
 
 function supportVisualizer() {
     return useAudioCtx;

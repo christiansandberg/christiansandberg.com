@@ -21,10 +21,10 @@ function Music() {
                     {supportVisualizer() && <Visualizer />}
                 </div>
                 <div className="presentation">
-                    Here's a collection of some of my house productions,
+                    Here's a mix of some of my house productions,
                     remixes and mash-ups that have just been collecting dust
                     on a hard drive for the last decade.
-                    Maybe you'll find something you like, or not...
+                    Why not play it on your next workout?
                 </div>
                 <Mix tracks={mixInfo.tracks} />
             </div>
