@@ -14,6 +14,11 @@
         background-image: url("./IMG_0920.jpg");
     }
 
+    .rain {
+        mix-blend-mode: overlay;
+        // opacity: 0.8;
+    }
+
     .title {
         position: relative;
         width: 100%;

@@ -3,6 +3,7 @@ import ReactGA from 'react-ga';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn, faGithub, faSpotify } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import Rain from './Rain';
 import './Home.scss';
 
 
@@ -45,7 +46,9 @@ function Home() {
     return (
         <section className="home">
             <div className="scroll-container">
-                <div className="background"></div>
+                <div className="background">
+                    <Rain/>
+                </div>
                 <div className="title">
                     <h1>
                         <div className="christian">Christian</div>
@@ -53,10 +56,11 @@ function Home() {
                     </h1>
                 </div>
                 <div className="presentation">
-                    Hi! I'm just an ordinary software developer
+                    Hi! I'm an ordinary software developer
                     who enjoys music, photography and web technologies.
-                    Welcome to my little experimentation platform which is
-                    still under construction!
+                    Welcome to my little experimentation platform for trying
+                    out modern web technologies like React, WebGL, WebAudio
+                    and more...
                 </div>
                 <ul className="links">{list}</ul>
             </div>
