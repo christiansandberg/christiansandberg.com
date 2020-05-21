@@ -52,6 +52,10 @@
         // border: 30px solid #cccccc;
         // transform-origin: left;
     }
+
+    video:focus {
+        outline: none;
+    }
 }
 
 // .page-enter .photos {

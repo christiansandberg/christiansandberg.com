@@ -9,7 +9,7 @@ function Menu() {
             <ul>
                 <li><NavLink to="/" exact>Home</NavLink></li>
                 <li><NavLink to="/music">Music</NavLink></li>
-                <li><NavLink to="/photos">Photography</NavLink></li>
+                <li><NavLink to="/photos">Photos</NavLink></li>
             </ul>
         </nav>
     );
