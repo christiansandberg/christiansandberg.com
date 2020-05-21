@@ -45,7 +45,7 @@ function Rain() {
         const rain = new THREE.Points();
         rain.geometry.setAttribute("position", positions);
         // rain.material.color = new THREE.Color(0xeeeeee);
-        rain.material.size = 1;
+        rain.material.size = 1.3;
         rain.material.sizeAttenuation = false;
         rain.matrixAutoUpdate = false;
         rain.updateMatrix();
@@ -66,9 +66,9 @@ function Rain() {
         function render() {
             for (let i = 0; i < vertices.length; i += 3) {
                 // Speed due to gravity
-                vertices[i + 1] -= 2.5;
+                vertices[i + 1] -= 3;
                 // Speed due to wind
-                vertices[i + 2] += 1.5;
+                vertices[i + 2] += 2;
                 // When drop hits the ground, reset it
                 if (vertices[i + 1] < 0) {
                     vertices[i + 0] = THREE.MathUtils.randFloat(-100, 100);

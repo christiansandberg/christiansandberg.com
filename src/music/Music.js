@@ -24,7 +24,6 @@ function Music() {
                     Here's a mix of some of my house productions,
                     remixes and mash-ups that have just been collecting dust
                     on a hard drive for the last decade.
-                    Why not play it on your next workout?
                 </div>
                 <Mix tracks={mixInfo.tracks} />
             </div>

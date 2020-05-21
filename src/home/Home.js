@@ -56,11 +56,12 @@ function Home() {
                     </h1>
                 </div>
                 <div className="presentation">
-                    Hi! I'm an ordinary software developer
+                    Hi there! I'm an embedded software developer
                     who enjoys music, photography and web technologies.
-                    Welcome to my little experimentation platform for trying
-                    out modern web technologies like React, WebGL, WebAudio
-                    and more...
+                    This is just my small experimentation platform for trying
+                    out modern web technologies like React, WebGL, WebAudio et.c.
+                    As I had to come up with some sort of content to fill it with,
+                    you'll find some really old stuff I did when I had a lot more time...
                 </div>
                 <ul className="links">{list}</ul>
             </div>
